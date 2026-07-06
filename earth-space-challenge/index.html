@@ -1,821 +1,1549 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Earth &amp; Space Science Challenge — Submit Your Idea</title>
-<style>
-:root {
-  --maroon: #8b2f3a;
-  --maroon-light: #b5495a;
-  --cream: #fdf3ee;
-  --panel-border: rgba(255, 255, 255, 0.14);
-  --glow: #ff8fa3;
-  --accent: #ffb37a;
-  --good: #6ee7a8;
-  --warn: #ffd166;
-  --bad: #ff6b6b;
-  --c-climate: #ff8f6b;
-  --c-satellites: #7ac4ff;
-  --c-water: #6ee7c5;
-  --c-mobility: #ffb37a;
-  --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
-}
-* { box-sizing: border-box; }
-html, body { margin:0; padding:0; font-family:var(--font); background:#120a12; color:var(--cream); overflow-x:hidden; }
-h1,h2,h3,h4,p { margin:0; }
-ul { margin:0; }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Earth &amp; Space Science Challenge — Submit Your Idea</title>
+  <style>
+    :root {
+      --maroon: #8b2f3a;
+      --maroon-light: #b5495a;
+      --cream: #fdf3ee;
+      --panel-border: rgba(255, 255, 255, 0.14);
+      --glow: #ff8fa3;
+      --accent: #ffb37a;
+      --good: #6ee7a8;
+      --warn: #ffd166;
+      --bad: #ff6b6b;
+      --c-climate: #ff8f6b;
+      --c-satellites: #7ac4ff;
+      --c-water: #6ee7c5;
+      --c-mobility: #ffb37a;
+      --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
 
-/* NAV */
-.nav {
-  position: fixed; top:0; left:0; right:0; z-index:50;
-  display:flex; align-items:center; justify-content:space-between;
-  padding:16px 32px;
-  backdrop-filter: blur(14px);
-  background: linear-gradient(180deg, rgba(18,10,18,0.8), rgba(18,10,18,0));
-}
-.nav .brand { display:flex; align-items:center; gap:10px; font-weight:700; }
-.nav .brand .dot { width:10px; height:10px; border-radius:50%; background:radial-gradient(circle at 30% 30%, #fff, var(--maroon-light)); box-shadow:0 0 12px var(--glow); }
-.nav-actions { display:flex; gap:10px; align-items:center; }
+    * {
+      box-sizing: border-box;
+    }
 
-.btn {
-  border:1px solid var(--panel-border); background:rgba(255,255,255,0.06); color:var(--cream);
-  padding:9px 16px; border-radius:999px; cursor:pointer; font-size:13.5px; font-weight:600;
-  display:inline-flex; align-items:center; gap:6px;
-  transition:transform .15s ease, background .2s ease, box-shadow .2s ease;
-}
-.btn:hover { transform:translateY(-1px); background:rgba(255,255,255,0.12); }
-.btn:disabled { opacity:0.4; cursor:not-allowed; transform:none; }
-.btn-primary { background:linear-gradient(135deg, var(--maroon-light), var(--maroon)); border-color:transparent; box-shadow:0 8px 24px rgba(139,47,58,0.45); }
-.btn-primary:hover:not(:disabled) { box-shadow:0 10px 30px rgba(139,47,58,0.6); }
-.btn-ghost { background:transparent; }
-.key-dot { width:8px; height:8px; border-radius:50%; background:var(--bad); display:inline-block; }
-.key-dot.set { background:var(--good); box-shadow:0 0 8px var(--good); }
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: var(--font);
+      background: #120a12;
+      color: var(--cream);
+      overflow-x: hidden;
+    }
 
-/* HERO */
-.hero {
-  position: relative;
-  min-height: 100vh;
-  display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;
-  padding:140px 24px 60px;
-  overflow: hidden;
-}
-#hero-canvas { position:absolute; inset:0; width:100%; height:100%; z-index:0; }
-.hero > * { position:relative; z-index:1; }
-.eyebrow { text-transform:uppercase; letter-spacing:3px; font-size:12.5px; color:var(--accent); font-weight:700; margin-bottom:18px; }
-.hero h1 {
-  font-size:clamp(2.2rem, 5.4vw, 4rem); line-height:1.1; margin:0 0 20px; max-width:940px; font-weight:800; letter-spacing:-1px;
-  background:linear-gradient(120deg, #fff 20%, var(--accent) 55%, var(--maroon-light) 90%);
-  -webkit-background-clip:text; background-clip:text; color:transparent;
-}
-.hero p.sub { max-width:620px; font-size:1.05rem; line-height:1.6; color:rgba(253,243,238,0.78); margin-bottom:28px; }
-.hero-ctas { display:flex; gap:14px; flex-wrap:wrap; justify-content:center; margin-bottom:34px; }
-.hero-legend { display:flex; gap:22px; flex-wrap:wrap; justify-content:center; font-size:12.5px; color:rgba(253,243,238,0.6); }
-.hero-legend span { display:flex; align-items:center; gap:6px; }
-.hero-legend .sw { width:9px; height:9px; border-radius:50%; }
-.scroll-hint { margin-top:30px; font-size:12px; color:rgba(253,243,238,0.45); animation:bob 2.2s ease-in-out infinite; }
-@keyframes bob { 0%,100%{transform:translateY(0);} 50%{transform:translateY(8px);} }
+    h1,
+    h2,
+    h3,
+    h4,
+    p {
+      margin: 0;
+    }
 
-/* SECTIONS */
-.section { max-width:1100px; margin:0 auto; padding:80px 24px; }
-.section-head { text-align:center; margin-bottom:44px; }
-.section-head h2 { font-size:clamp(1.6rem, 3.6vw, 2.3rem); font-weight:800; margin-bottom:10px; }
-.section-head p { color:rgba(253,243,238,0.65); max-width:560px; margin:0 auto; line-height:1.6; }
+    ul {
+      margin: 0;
+    }
 
-/* CHALLENGE GRID — strict 2x2 */
-.challenge-grid { display:grid; grid-template-columns:repeat(2, 1fr); gap:22px; }
-@media (max-width:720px) { .challenge-grid { grid-template-columns:1fr; } }
+    /* NAV */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 32px;
+      backdrop-filter: blur(14px);
+      background: linear-gradient(180deg, rgba(18, 10, 18, 0.8), rgba(18, 10, 18, 0));
+    }
 
-.challenge-card {
-  border-radius:20px; padding:26px 26px 24px;
-  background:linear-gradient(160deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
-  border:1px solid var(--panel-border);
-  transition: box-shadow .25s ease, border-color .25s ease, transform .15s ease;
-}
-.challenge-card:hover { transform:translateY(-3px); box-shadow:0 20px 50px rgba(0,0,0,0.4); border-color:rgba(255,179,122,0.4); }
-.challenge-card.selected { border-color:var(--accent); box-shadow:0 0 0 2px var(--accent); }
-.challenge-card .top-row { display:flex; align-items:center; gap:12px; margin-bottom:12px; }
-.challenge-card .icon {
-  width:46px; height:46px; border-radius:12px; flex:none;
-  display:flex; align-items:center; justify-content:center; font-size:22px;
-  background:linear-gradient(135deg, var(--maroon-light), var(--maroon));
-  box-shadow:0 6px 16px rgba(139,47,58,0.45);
-}
-.challenge-card .tag { font-size:10.5px; letter-spacing:1px; text-transform:uppercase; color:var(--accent); font-weight:700; }
-.challenge-card h3 { font-size:1.08rem; margin-bottom:8px; }
-.challenge-card .blurb { font-size:13.5px; color:rgba(253,243,238,0.68); line-height:1.55; margin-bottom:14px; }
-.chips { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:16px; }
-.chip { font-size:11px; padding:4px 10px; border-radius:999px; background:rgba(255,255,255,0.07); border:1px solid var(--panel-border); color:rgba(253,243,238,0.75); }
-.challenge-card .pick-btn { font-size:12.5px; padding:8px 15px; width:100%; justify-content:center; }
+    .nav .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+    }
 
-/* WIZARD */
-.wizard-wrap { display:flex; justify-content:center; }
-.wizard-card {
-  width:100%; max-width:880px;
-  background:linear-gradient(160deg, rgba(255,255,255,0.07), rgba(255,255,255,0.02));
-  border:1px solid var(--panel-border); border-radius:24px; padding:34px 38px 28px;
-}
+    .nav .brand .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #fff, var(--maroon-light));
+      box-shadow: 0 0 12px var(--glow);
+    }
 
-.wizard-progress { display:flex; align-items:center; margin-bottom:34px; }
-.wp-item { display:flex; flex-direction:column; align-items:center; gap:6px; cursor:default; flex:none; width:76px; }
-.wp-item.enabled { cursor:pointer; }
-.wp-dot {
-  width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center;
-  font-size:12px; font-weight:700; background:rgba(255,255,255,0.08); border:1px solid var(--panel-border); color:rgba(253,243,238,0.5);
-}
-.wp-item.current .wp-dot { background:linear-gradient(135deg, var(--maroon-light), var(--maroon)); color:#fff; border-color:transparent; box-shadow:0 0 0 4px rgba(139,47,58,0.25); }
-.wp-item.done .wp-dot { background:rgba(110,231,168,0.18); color:var(--good); border-color:transparent; }
-.wp-label { font-size:10px; color:rgba(253,243,238,0.45); text-align:center; white-space:nowrap; }
-.wp-item.current .wp-label { color:var(--accent); font-weight:700; }
-.wp-line { flex:1; height:1px; background:var(--panel-border); margin-top:-16px; min-width:8px; }
+    .nav-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
 
-.w-step { display:none; animation:fadeIn .35s ease; }
-.w-step.active { display:block; }
-@keyframes fadeIn { from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);} }
+    .btn {
+      border: 1px solid var(--panel-border);
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--cream);
+      padding: 9px 16px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 13.5px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: transform .15s ease, background .2s ease, box-shadow .2s ease;
+    }
 
-.step-eyebrow { font-size:11.5px; text-transform:uppercase; letter-spacing:1.5px; color:var(--accent); font-weight:700; }
-.step-head h3 { font-size:1.5rem; margin:6px 0 8px; }
-.step-hint { font-size:13.5px; color:rgba(253,243,238,0.6); line-height:1.6; margin-bottom:24px; }
+    .btn:hover {
+      transform: translateY(-1px);
+      background: rgba(255, 255, 255, 0.12);
+    }
 
-.step-split { display:grid; grid-template-columns:1.3fr 1fr; gap:22px; align-items:stretch; }
-@media (max-width:720px) { .step-split { grid-template-columns:1fr; } }
+    .btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      transform: none;
+    }
 
-textarea, input[type=text], input[type=email], input[type=tel] {
-  width:100%; background:rgba(0,0,0,0.25); border:1px solid var(--panel-border); border-radius:12px;
-  padding:12px 14px; color:var(--cream); font-family:inherit; font-size:14.5px; outline:none; resize:vertical;
-  transition:border-color .2s ease, box-shadow .2s ease;
-}
-textarea:focus, input:focus { border-color:var(--accent); box-shadow:0 0 0 3px rgba(255,179,122,0.18); }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--maroon-light), var(--maroon));
+      border-color: transparent;
+      box-shadow: 0 8px 24px rgba(139, 47, 58, 0.45);
+    }
 
-.counter-row { display:flex; justify-content:space-between; align-items:center; margin-top:8px; }
-.word-counter { font-size:12px; color:rgba(253,243,238,0.5); }
-.word-counter.over { color:var(--bad); font-weight:700; }
-.field-status { font-size:11.5px; padding:3px 9px; border-radius:999px; background:rgba(255,255,255,0.08); color:rgba(253,243,238,0.6); }
-.field-status.loading { color:var(--warn); }
-.field-status.ready { color:var(--good); }
+    .btn-primary:hover:not(:disabled) {
+      box-shadow: 0 10px 30px rgba(139, 47, 58, 0.6);
+    }
 
-.step-feedback {
-  background:linear-gradient(160deg, rgba(139,47,58,0.22), rgba(0,0,0,0.25));
-  border:1px solid rgba(255,179,122,0.25); border-radius:16px; padding:18px 20px;
-  display:flex; flex-direction:column; gap:10px; min-height:100%;
-}
-.step-feedback h4 { font-size:11.5px; text-transform:uppercase; letter-spacing:1.3px; color:var(--accent); display:flex; align-items:center; gap:8px; margin:0; }
-.step-feedback h4 .mascot { font-size:15px; line-height:1; filter:drop-shadow(0 0 6px rgba(255,179,122,0.6)); animation:mascotBob 2.4s ease-in-out infinite; }
-@keyframes mascotBob { 0%,100%{transform:translateY(0) rotate(0deg);} 50%{transform:translateY(-2px) rotate(-6deg);} }
-.feedback-empty { color:rgba(253,243,238,0.45); font-size:13px; line-height:1.65; margin-top:10px; }
-.verdict { display:inline-block; font-size:10.5px; font-weight:800; padding:2px 9px; border-radius:999px; margin-bottom:6px; }
-.verdict.strong { background:rgba(110,231,168,0.18); color:var(--good); }
-.verdict.promising { background:rgba(255,209,102,0.18); color:var(--warn); }
-.verdict.needs-work { background:rgba(255,107,107,0.18); color:var(--bad); }
-.feedback-text { font-size:13px; line-height:1.6; color:rgba(253,243,238,0.85); white-space:pre-line; }
-.feedback-body .error { color:var(--bad); font-size:12.5px; }
-.spinner { width:15px; height:15px; border-radius:50%; border:2px solid rgba(255,255,255,0.2); border-top-color:var(--accent); animation:spin .8s linear infinite; }
-@keyframes spin { to{transform:rotate(360deg);} }
+    .btn-ghost {
+      background: transparent;
+    }
 
-/* TRACK CHIPS (inline, inside problem step) */
-.track-row { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px; }
-.track-chip {
-  display:flex; align-items:center; gap:7px; padding:8px 14px; border-radius:999px; cursor:pointer;
-  border:1px solid var(--panel-border); background:rgba(255,255,255,0.04); font-size:12.5px; font-weight:600;
-  color:rgba(253,243,238,0.75); transition:all .15s ease;
-}
-.track-chip:hover { background:rgba(255,255,255,0.09); }
-.track-chip.active { border-color:var(--accent); background:rgba(255,179,122,0.14); box-shadow:0 0 0 1px var(--accent); color:var(--cream); }
+    .key-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--bad);
+      display: inline-block;
+    }
 
-/* CONSULTATION UPSELL */
-.consult-banner {
-  display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;
-  background:linear-gradient(120deg, rgba(255,179,122,0.14), rgba(139,47,58,0.18));
-  border:1px solid rgba(255,179,122,0.35); border-radius:16px; padding:16px 20px; margin-bottom:28px;
-}
-.consult-banner .cb-text { font-size:13.5px; line-height:1.5; color:rgba(253,243,238,0.9); }
-.consult-banner .cb-text strong { color:var(--accent); }
-.consult-banner .btn { flex:none; }
+    .key-dot.set {
+      background: var(--good);
+      box-shadow: 0 0 8px var(--good);
+    }
 
-/* ABOUT STEP */
-.about-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; max-width:600px; }
-@media (max-width:560px) { .about-grid { grid-template-columns:1fr; } }
-.about-grid input { margin-bottom:0; }
-.about-grid .full { grid-column:1 / -1; }
+    /* HERO */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 140px 24px 60px;
+      overflow: hidden;
+    }
 
-/* REVIEW */
-.review-list { display:flex; flex-direction:column; gap:12px; margin-bottom:20px; }
-.review-row {
-  background:rgba(0,0,0,0.2); border:1px solid var(--panel-border); border-radius:12px; padding:14px 16px;
-  display:flex; justify-content:space-between; gap:16px; align-items:flex-start;
-}
-.review-row .rl { font-size:11px; text-transform:uppercase; letter-spacing:1px; color:var(--accent); font-weight:700; margin-bottom:4px; }
-.review-row .rv { font-size:13.5px; color:rgba(253,243,238,0.85); line-height:1.5; white-space:pre-line; }
-.review-row .redit { font-size:12px; color:var(--accent); cursor:pointer; flex:none; background:none; border:none; font-weight:700; }
+    #hero-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
 
-/* WIZARD NAV */
-.wizard-nav { display:flex; justify-content:space-between; align-items:center; margin-top:28px; padding-top:22px; border-top:1px solid var(--panel-border); }
+    .hero>* {
+      position: relative;
+      z-index: 1;
+    }
 
-/* SUCCESS */
-.success-body { text-align:center; padding:30px 10px; }
-.icon-big { width:80px; height:80px; border-radius:50%; margin:0 auto 22px; background:linear-gradient(135deg, var(--maroon-light), var(--maroon)); display:flex; align-items:center; justify-content:center; font-size:36px; box-shadow:0 20px 50px rgba(139,47,58,0.5); }
-.success-body p { color:rgba(253,243,238,0.65); max-width:420px; margin:14px auto 0; line-height:1.6; }
-.success-actions { display:flex; gap:12px; justify-content:center; margin-top:26px; flex-wrap:wrap; }
+    .eyebrow {
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-size: 12.5px;
+      color: var(--accent);
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
 
-/* MODAL */
-.modal-overlay { position:fixed; inset:0; background:rgba(10,5,10,0.7); backdrop-filter:blur(6px); z-index:100; display:none; align-items:center; justify-content:center; padding:20px; }
-.modal-overlay.open { display:flex; }
-.modal { width:100%; max-width:440px; background:#1c1017; border:1px solid var(--panel-border); border-radius:20px; padding:28px; box-shadow:0 30px 80px rgba(0,0,0,0.6); }
-.modal h3 { font-size:1.15rem; margin-bottom:8px; }
-.modal p.desc { font-size:13px; color:rgba(253,243,238,0.6); line-height:1.6; margin-bottom:18px; }
-.modal label { font-size:12.5px; font-weight:700; display:block; margin-bottom:6px; margin-top:14px; }
-.modal select { width:100%; background:rgba(0,0,0,0.25); border:1px solid var(--panel-border); border-radius:12px; padding:12px 14px; color:var(--cream); font-family:inherit; font-size:14px; }
-.modal .modal-actions { display:flex; justify-content:flex-end; gap:10px; margin-top:22px; }
-.modal a { color:var(--accent); }
+    .hero h1 {
+      font-size: clamp(2.2rem, 5.4vw, 4rem);
+      line-height: 1.1;
+      margin: 0 0 20px;
+      max-width: 940px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      background: linear-gradient(120deg, #fff 20%, var(--accent) 55%, var(--maroon-light) 90%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
 
-/* TOAST */
-.toast { position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(20px); background:#1c1017; border:1px solid var(--panel-border); padding:14px 22px; border-radius:14px; font-size:13.5px; z-index:200; opacity:0; transition:all .3s ease; pointer-events:none; box-shadow:0 20px 50px rgba(0,0,0,0.4); }
-.toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
-.toast.success { border-color:var(--good); }
-.toast.error { border-color:var(--bad); }
+    .hero p.sub {
+      max-width: 620px;
+      font-size: 1.05rem;
+      line-height: 1.6;
+      color: rgba(253, 243, 238, 0.78);
+      margin-bottom: 28px;
+    }
 
-footer { text-align:center; padding:36px 24px 56px; color:rgba(253,243,238,0.4); font-size:12.5px; }
-</style>
+    .hero-ctas {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 34px;
+    }
+
+    .hero-legend {
+      display: flex;
+      gap: 22px;
+      flex-wrap: wrap;
+      justify-content: center;
+      font-size: 12.5px;
+      color: rgba(253, 243, 238, 0.6);
+    }
+
+    .hero-legend span {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .hero-legend .sw {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+    }
+
+    .scroll-hint {
+      margin-top: 30px;
+      font-size: 12px;
+      color: rgba(253, 243, 238, 0.45);
+      animation: bob 2.2s ease-in-out infinite;
+    }
+
+    @keyframes bob {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(8px);
+      }
+    }
+
+    /* SECTIONS */
+    .section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 80px 24px;
+    }
+
+    .section-head {
+      text-align: center;
+      margin-bottom: 44px;
+    }
+
+    .section-head h2 {
+      font-size: clamp(1.6rem, 3.6vw, 2.3rem);
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    .section-head p {
+      color: rgba(253, 243, 238, 0.65);
+      max-width: 560px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* CHALLENGE GRID — strict 2x2 */
+    .challenge-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 22px;
+    }
+
+    @media (max-width:720px) {
+      .challenge-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .challenge-card {
+      border-radius: 20px;
+      padding: 26px 26px 24px;
+      background: linear-gradient(160deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
+      border: 1px solid var(--panel-border);
+      transition: box-shadow .25s ease, border-color .25s ease, transform .15s ease;
+    }
+
+    .challenge-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+      border-color: rgba(255, 179, 122, 0.4);
+    }
+
+    .challenge-card.selected {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px var(--accent);
+    }
+
+    .challenge-card .top-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .challenge-card .icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
+      flex: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      background: linear-gradient(135deg, var(--maroon-light), var(--maroon));
+      box-shadow: 0 6px 16px rgba(139, 47, 58, 0.45);
+    }
+
+    .challenge-card .tag {
+      font-size: 10.5px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .challenge-card h3 {
+      font-size: 1.08rem;
+      margin-bottom: 8px;
+    }
+
+    .challenge-card .blurb {
+      font-size: 13.5px;
+      color: rgba(253, 243, 238, 0.68);
+      line-height: 1.55;
+      margin-bottom: 14px;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+
+    .chip {
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid var(--panel-border);
+      color: rgba(253, 243, 238, 0.75);
+    }
+
+    .challenge-card .pick-btn {
+      font-size: 12.5px;
+      padding: 8px 15px;
+      width: 100%;
+      justify-content: center;
+    }
+
+    /* WIZARD */
+    .wizard-wrap {
+      display: flex;
+      justify-content: center;
+    }
+
+    .wizard-card {
+      width: 100%;
+      max-width: 880px;
+      background: linear-gradient(160deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.02));
+      border: 1px solid var(--panel-border);
+      border-radius: 24px;
+      padding: 34px 38px 28px;
+    }
+
+    .wizard-progress {
+      display: flex;
+      align-items: center;
+      margin-bottom: 34px;
+    }
+
+    .wp-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      cursor: default;
+      flex: none;
+      width: 76px;
+    }
+
+    .wp-item.enabled {
+      cursor: pointer;
+    }
+
+    .wp-dot {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--panel-border);
+      color: rgba(253, 243, 238, 0.5);
+    }
+
+    .wp-item.current .wp-dot {
+      background: linear-gradient(135deg, var(--maroon-light), var(--maroon));
+      color: #fff;
+      border-color: transparent;
+      box-shadow: 0 0 0 4px rgba(139, 47, 58, 0.25);
+    }
+
+    .wp-item.done .wp-dot {
+      background: rgba(110, 231, 168, 0.18);
+      color: var(--good);
+      border-color: transparent;
+    }
+
+    .wp-label {
+      font-size: 10px;
+      color: rgba(253, 243, 238, 0.45);
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .wp-item.current .wp-label {
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .wp-line {
+      flex: 1;
+      height: 1px;
+      background: var(--panel-border);
+      margin-top: -16px;
+      min-width: 8px;
+    }
+
+    .w-step {
+      display: none;
+      animation: fadeIn .35s ease;
+    }
+
+    .w-step.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .step-eyebrow {
+      font-size: 11.5px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .step-head h3 {
+      font-size: 1.5rem;
+      margin: 6px 0 8px;
+    }
+
+    .step-hint {
+      font-size: 13.5px;
+      color: rgba(253, 243, 238, 0.6);
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    .step-split {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    @media (max-width:720px) {
+      .step-split {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .mini-label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      color: rgba(253, 243, 238, 0.7);
+      margin-bottom: 7px;
+    }
+
+    textarea,
+    input[type=text],
+    input[type=email],
+    input[type=tel] {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid var(--panel-border);
+      border-radius: 12px;
+      padding: 12px 14px;
+      color: var(--cream);
+      font-family: inherit;
+      font-size: 14.5px;
+      outline: none;
+      resize: vertical;
+      transition: border-color .2s ease, box-shadow .2s ease;
+    }
+
+    textarea:focus,
+    input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(255, 179, 122, 0.18);
+    }
+
+    .counter-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 8px;
+    }
+
+    .word-counter {
+      font-size: 12px;
+      color: rgba(253, 243, 238, 0.5);
+    }
+
+    .word-counter.over {
+      color: var(--bad);
+      font-weight: 700;
+    }
+
+    .field-status {
+      font-size: 11.5px;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      color: rgba(253, 243, 238, 0.6);
+    }
+
+    .field-status.loading {
+      color: var(--warn);
+    }
+
+    .field-status.ready {
+      color: var(--good);
+    }
+
+    .step-feedback {
+      background: linear-gradient(160deg, rgba(139, 47, 58, 0.22), rgba(0, 0, 0, 0.25));
+      border: 1px solid rgba(255, 179, 122, 0.25);
+      border-radius: 16px;
+      padding: 18px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 100%;
+    }
+
+    .step-feedback h4 {
+      font-size: 11.5px;
+      text-transform: uppercase;
+      letter-spacing: 1.3px;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0;
+    }
+
+    .step-feedback h4 .mascot {
+      font-size: 15px;
+      line-height: 1;
+      filter: drop-shadow(0 0 6px rgba(255, 179, 122, 0.6));
+      animation: mascotBob 2.4s ease-in-out infinite;
+    }
+
+    @keyframes mascotBob {
+
+      0%,
+      100% {
+        transform: translateY(0) rotate(0deg);
+      }
+
+      50% {
+        transform: translateY(-2px) rotate(-6deg);
+      }
+    }
+
+    .feedback-empty {
+      color: rgba(253, 243, 238, 0.45);
+      font-size: 13px;
+      line-height: 1.65;
+      margin-top: 10px;
+    }
+
+    .verdict {
+      display: inline-block;
+      font-size: 10.5px;
+      font-weight: 800;
+      padding: 2px 9px;
+      border-radius: 999px;
+      margin-bottom: 6px;
+    }
+
+    .verdict.strong {
+      background: rgba(110, 231, 168, 0.18);
+      color: var(--good);
+    }
+
+    .verdict.promising {
+      background: rgba(255, 209, 102, 0.18);
+      color: var(--warn);
+    }
+
+    .verdict.needs-work {
+      background: rgba(255, 107, 107, 0.18);
+      color: var(--bad);
+    }
+
+    .feedback-text {
+      font-size: 13px;
+      line-height: 1.6;
+      color: rgba(253, 243, 238, 0.85);
+      white-space: pre-line;
+    }
+
+    .feedback-body .error {
+      color: var(--bad);
+      font-size: 12.5px;
+    }
+
+    .spinner {
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      border-top-color: var(--accent);
+      animation: spin .8s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* TRACK CHIPS (inline, inside problem step) */
+    .track-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .track-chip {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      cursor: pointer;
+      border: 1px solid var(--panel-border);
+      background: rgba(255, 255, 255, 0.04);
+      font-size: 12.5px;
+      font-weight: 600;
+      color: rgba(253, 243, 238, 0.75);
+      transition: all .15s ease;
+    }
+
+    .track-chip:hover {
+      background: rgba(255, 255, 255, 0.09);
+    }
+
+    .track-chip.active {
+      border-color: var(--accent);
+      background: rgba(255, 179, 122, 0.14);
+      box-shadow: 0 0 0 1px var(--accent);
+      color: var(--cream);
+    }
+
+    /* CONSULTATION UPSELL */
+    .consult-banner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      background: linear-gradient(120deg, rgba(255, 179, 122, 0.14), rgba(139, 47, 58, 0.18));
+      border: 1px solid rgba(255, 179, 122, 0.35);
+      border-radius: 16px;
+      padding: 16px 20px;
+      margin-bottom: 28px;
+    }
+
+    .consult-banner .cb-text {
+      font-size: 13.5px;
+      line-height: 1.5;
+      color: rgba(253, 243, 238, 0.9);
+    }
+
+    .consult-banner .cb-text strong {
+      color: var(--accent);
+    }
+
+    .consult-banner .btn {
+      flex: none;
+    }
+
+    /* ABOUT STEP */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      max-width: 600px;
+    }
+
+    @media (max-width:560px) {
+      .about-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .about-grid input {
+      margin-bottom: 0;
+    }
+
+    .about-grid .full {
+      grid-column: 1 / -1;
+    }
+
+    /* REVIEW */
+    .review-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .review-row {
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid var(--panel-border);
+      border-radius: 12px;
+      padding: 14px 16px;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .review-row .rl {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--accent);
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .review-row .rv {
+      font-size: 13.5px;
+      color: rgba(253, 243, 238, 0.85);
+      line-height: 1.5;
+      white-space: pre-line;
+    }
+
+    .review-row .redit {
+      font-size: 12px;
+      color: var(--accent);
+      cursor: pointer;
+      flex: none;
+      background: none;
+      border: none;
+      font-weight: 700;
+    }
+
+    /* WIZARD NAV */
+    .wizard-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 28px;
+      padding-top: 22px;
+      border-top: 1px solid var(--panel-border);
+    }
+
+    /* SUCCESS */
+    .success-body {
+      text-align: center;
+      padding: 30px 10px;
+    }
+
+    .icon-big {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      margin: 0 auto 22px;
+      background: linear-gradient(135deg, var(--maroon-light), var(--maroon));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 36px;
+      box-shadow: 0 20px 50px rgba(139, 47, 58, 0.5);
+    }
+
+    .success-body p {
+      color: rgba(253, 243, 238, 0.65);
+      max-width: 420px;
+      margin: 14px auto 0;
+      line-height: 1.6;
+    }
+
+    .success-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      margin-top: 26px;
+      flex-wrap: wrap;
+    }
+
+    /* MODAL */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 5, 10, 0.7);
+      backdrop-filter: blur(6px);
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-overlay.open {
+      display: flex;
+    }
+
+    .modal {
+      width: 100%;
+      max-width: 440px;
+      background: #1c1017;
+      border: 1px solid var(--panel-border);
+      border-radius: 20px;
+      padding: 28px;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+    }
+
+    .modal h3 {
+      font-size: 1.15rem;
+      margin-bottom: 8px;
+    }
+
+    .modal p.desc {
+      font-size: 13px;
+      color: rgba(253, 243, 238, 0.6);
+      line-height: 1.6;
+      margin-bottom: 18px;
+    }
+
+    .modal label {
+      font-size: 12.5px;
+      font-weight: 700;
+      display: block;
+      margin-bottom: 6px;
+      margin-top: 14px;
+    }
+
+    .modal select {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid var(--panel-border);
+      border-radius: 12px;
+      padding: 12px 14px;
+      color: var(--cream);
+      font-family: inherit;
+      font-size: 14px;
+    }
+
+    .modal .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    .modal a {
+      color: var(--accent);
+    }
+
+    /* TOAST */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: #1c1017;
+      border: 1px solid var(--panel-border);
+      padding: 14px 22px;
+      border-radius: 14px;
+      font-size: 13.5px;
+      z-index: 200;
+      opacity: 0;
+      transition: all .3s ease;
+      pointer-events: none;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .toast.success {
+      border-color: var(--good);
+    }
+
+    .toast.error {
+      border-color: var(--bad);
+    }
+
+    footer {
+      text-align: center;
+      padding: 36px 24px 56px;
+      color: rgba(253, 243, 238, 0.4);
+      font-size: 12.5px;
+    }
+  </style>
 </head>
+
 <body>
 
-<nav class="nav">
-  <div class="brand"><span class="dot"></span> Earth &amp; Space Challenge</div>
-  <div class="nav-actions">
-    <button class="btn btn-ghost" id="openKeyModal"><span class="key-dot" id="keyDot"></span> API Settings</button>
-    <button class="btn btn-primary" id="ctaNav">Start Submission</button>
-  </div>
-</nav>
+  <nav class="nav">
+    <div class="brand"><span class="dot"></span> Earth &amp; Space Challenge</div>
+    <div class="nav-actions">
+      <button class="btn btn-ghost" id="openKeyModal"><span class="key-dot" id="keyDot"></span> API Settings</button>
+      <button class="btn btn-primary" id="ctaNav">Start Submission</button>
+    </div>
+  </nav>
 
-<section class="hero" id="hero">
-  <canvas id="hero-canvas"></canvas>
-  <div class="eyebrow">Education Japan · Global Aspirations</div>
-  <h1>How can Earth &amp; Space Science<br/>improve life on Earth over the next 20 years?</h1>
-  <p class="sub">Pick a challenge track, describe the real problem you want to solve, and submit your idea — one focused step at a time, with an AI mentor giving live feedback right beside whatever you're writing.</p>
-  <div class="hero-ctas">
-    <button class="btn btn-primary" id="ctaExplore">Explore the 4 Challenges</button>
-    <button class="btn btn-ghost" id="ctaForm">Go straight to the form →</button>
-  </div>
-  <div class="hero-legend">
-    <span><span class="sw" style="background:var(--c-climate)"></span>🌪️ Climate &amp; Disaster AI</span>
-    <span><span class="sw" style="background:var(--c-satellites)"></span>🛰️ Satellite Observation</span>
-    <span><span class="sw" style="background:var(--c-water)"></span>💧 Water Security</span>
-    <span><span class="sw" style="background:var(--c-mobility)"></span>🚀 Space Mobility</span>
-  </div>
-  <div class="scroll-hint">↓ scroll</div>
-</section>
+  <section class="hero" id="hero">
+    <canvas id="hero-canvas"></canvas>
+    <div class="eyebrow">Education Japan · Global Aspirations</div>
+    <h1>How can Earth &amp; Space Science<br />improve life on Earth over the next 20 years?</h1>
+    <p class="sub">Pick a challenge track, describe the real problem you want to solve, and submit your idea — one
+      focused step at a time, with an AI mentor giving live feedback right beside whatever you're writing.</p>
+    <div class="hero-ctas">
+      <button class="btn btn-primary" id="ctaExplore">Explore the 4 Challenges</button>
+      <button class="btn btn-ghost" id="ctaForm">Go straight to the form →</button>
+    </div>
+    <div class="hero-legend">
+      <span><span class="sw" style="background:var(--c-climate)"></span>🌪️ Climate &amp; Disaster AI</span>
+      <span><span class="sw" style="background:var(--c-satellites)"></span>🛰️ Satellite Observation</span>
+      <span><span class="sw" style="background:var(--c-water)"></span>💧 Water Security</span>
+      <span><span class="sw" style="background:var(--c-mobility)"></span>🚀 Space Mobility</span>
+    </div>
+    <div class="scroll-hint">↓ scroll</div>
+  </section>
 
-<section class="section" id="challenges">
-  <div class="section-head">
-    <h2>Choose your challenge track</h2>
-    <p>Four futuristic research areas — same four orbiting the Earth above. Pick one to carry it into your submission.</p>
-  </div>
-  <div class="challenge-grid">
+  <section class="section" id="challenges">
+    <div class="section-head">
+      <h2>Choose your challenge track</h2>
+      <p>Four futuristic research areas — same four orbiting the Earth above. Pick one to carry it into your submission.
+      </p>
+    </div>
+    <div class="challenge-grid">
 
-    <article class="challenge-card" data-key="climate">
-      <div class="top-row"><div class="icon">🌪️</div><span class="tag">Track 01</span></div>
-      <h3>AI for Climate &amp; Disaster Intelligence</h3>
-      <p class="blurb">Predict floods, fires and heatwaves before they hit.</p>
-      <div class="chips"><span class="chip">Flood prediction</span><span class="chip">Landslide prediction</span><span class="chip">Fire detection</span><span class="chip">Heatwave forecasting</span></div>
-      <button class="btn btn-primary pick-btn">Select this track</button>
-    </article>
-
-    <article class="challenge-card" data-key="satellites">
-      <div class="top-row"><div class="icon">🛰️</div><span class="tag">Track 02</span></div>
-      <h3>Smart Earth Observations Using Satellites</h3>
-      <p class="blurb">Watch the planet in near real-time from orbit.</p>
-      <div class="chips"><span class="chip">Illegal mining</span><span class="chip">Plastic pollution</span><span class="chip">Coastal erosion</span><span class="chip">Urban heat islands</span></div>
-      <button class="btn btn-primary pick-btn">Select this track</button>
-    </article>
-
-    <article class="challenge-card" data-key="water">
-      <div class="top-row"><div class="icon">💧</div><span class="tag">Track 03</span></div>
-      <h3>Future of Water Security</h3>
-      <p class="blurb">Keep every basin, farm and tap ahead of drought.</p>
-      <div class="chips"><span class="chip">Groundwater monitoring</span><span class="chip">Smart irrigation</span><span class="chip">Drought prediction</span><span class="chip">Water quality</span></div>
-      <button class="btn btn-primary pick-btn">Select this track</button>
-    </article>
-
-    <article class="challenge-card" data-key="mobility">
-      <div class="top-row"><div class="icon">🚀</div><span class="tag">Track 04</span></div>
-      <h3>Future Mobility through Space Technology</h3>
-      <p class="blurb">Move people, data and goods through the next frontier.</p>
-      <div class="chips"><span class="chip">Navigation</span><span class="chip">Satellite internet</span><span class="chip">Drone systems</span><span class="chip">Autonomous vehicles</span></div>
-      <button class="btn btn-primary pick-btn">Select this track</button>
-    </article>
-
-  </div>
-</section>
-
-<section class="section" id="wizard-section">
-  <div class="section-head">
-    <h2>Submit your research idea</h2>
-    <p>One step at a time. Wherever you're writing, your AI mentor's feedback sits right beside it.</p>
-  </div>
-
-  <div class="wizard-wrap">
-    <div class="wizard-card">
-      <div class="wizard-progress" id="wizardProgress"></div>
-
-      <div class="consult-banner">
-        <div class="cb-text">🎓 <strong>Want more than a quick AI pass?</strong> Get a full consultation on your PhD research application to Japanese universities from our admissions team.</div>
-        <button class="btn btn-primary" id="openConsultModal">Book a Consultation →</button>
-      </div>
-
-      <!-- STEP: problem (incl. track pick) -->
-      <div class="w-step" data-step="problem">
-        <div class="step-head">
-          <span class="step-eyebrow">Step 1 of 7</span>
-          <h3>What problem do you want to solve?</h3>
-          <p class="step-hint">Pick a track, then describe who benefits, how, and why it matters. Limit 150 words.</p>
+      <article class="challenge-card" data-key="climate">
+        <div class="top-row">
+          <div class="icon">🌪️</div><span class="tag">Track 01</span>
         </div>
-        <div class="track-row" id="wizardTrackGrid">
-          <div class="track-chip" data-key="climate">🌪️ Climate &amp; Disaster AI</div>
-          <div class="track-chip" data-key="satellites">🛰️ Satellite Observation</div>
-          <div class="track-chip" data-key="water">💧 Water Security</div>
-          <div class="track-chip" data-key="mobility">🚀 Space Mobility</div>
+        <h3>AI for Climate &amp; Disaster Intelligence</h3>
+        <p class="blurb">Predict floods, fires and heatwaves before they hit.</p>
+        <div class="chips"><span class="chip">Flood prediction</span><span class="chip">Landslide prediction</span><span
+            class="chip">Fire detection</span><span class="chip">Heatwave forecasting</span></div>
+        <button class="btn btn-primary pick-btn">Select this track</button>
+      </article>
+
+      <article class="challenge-card" data-key="satellites">
+        <div class="top-row">
+          <div class="icon">🛰️</div><span class="tag">Track 02</span>
         </div>
-        <div class="step-split">
-          <div>
-            <textarea id="f_problem" data-field="problem" rows="9" placeholder="Describe the real-world problem..."></textarea>
-            <div class="counter-row">
-              <span class="word-counter" data-counter-for="f_problem">0 / 150 words</span>
-              <span class="field-status" data-status-for="problem"></span>
+        <h3>Smart Earth Observations Using Satellites</h3>
+        <p class="blurb">Watch the planet in near real-time from orbit.</p>
+        <div class="chips"><span class="chip">Illegal mining</span><span class="chip">Plastic pollution</span><span
+            class="chip">Coastal erosion</span><span class="chip">Urban heat islands</span></div>
+        <button class="btn btn-primary pick-btn">Select this track</button>
+      </article>
+
+      <article class="challenge-card" data-key="water">
+        <div class="top-row">
+          <div class="icon">💧</div><span class="tag">Track 03</span>
+        </div>
+        <h3>Future of Water Security</h3>
+        <p class="blurb">Keep every basin, farm and tap ahead of drought.</p>
+        <div class="chips"><span class="chip">Groundwater monitoring</span><span class="chip">Smart
+            irrigation</span><span class="chip">Drought prediction</span><span class="chip">Water quality</span></div>
+        <button class="btn btn-primary pick-btn">Select this track</button>
+      </article>
+
+      <article class="challenge-card" data-key="mobility">
+        <div class="top-row">
+          <div class="icon">🚀</div><span class="tag">Track 04</span>
+        </div>
+        <h3>Future Mobility through Space Technology</h3>
+        <p class="blurb">Move people, data and goods through the next frontier.</p>
+        <div class="chips"><span class="chip">Navigation</span><span class="chip">Satellite internet</span><span
+            class="chip">Drone systems</span><span class="chip">Autonomous vehicles</span></div>
+        <button class="btn btn-primary pick-btn">Select this track</button>
+      </article>
+
+    </div>
+  </section>
+
+  <section class="section" id="wizard-section">
+    <div class="section-head">
+      <h2>Submit your research idea</h2>
+      <p>One step at a time. Wherever you're writing, your AI mentor's feedback sits right beside it.</p>
+    </div>
+
+    <div class="wizard-wrap">
+      <div class="wizard-card">
+        <div class="wizard-progress" id="wizardProgress"></div>
+
+        <div class="consult-banner">
+          <div class="cb-text">🎓 <strong>Want more than a quick AI pass?</strong> Get a full consultation on your PhD
+            research application to Japanese universities from our admissions team.</div>
+          <button class="btn btn-primary" id="openConsultModal">Book a Consultation →</button>
+        </div>
+
+        <!-- STEP: problem (incl. track pick) -->
+        <div class="w-step" data-step="problem">
+          <div class="step-head">
+            <span class="step-eyebrow">Step 1 of 5</span>
+            <h3>What problem do you want to solve?</h3>
+            <p class="step-hint">Pick a track, then describe who benefits, how, and why it matters. Limit 150 words.</p>
+          </div>
+          <div class="track-row" id="wizardTrackGrid">
+            <div class="track-chip" data-key="climate">🌪️ Climate &amp; Disaster AI</div>
+            <div class="track-chip" data-key="satellites">🛰️ Satellite Observation</div>
+            <div class="track-chip" data-key="water">💧 Water Security</div>
+            <div class="track-chip" data-key="mobility">🚀 Space Mobility</div>
+          </div>
+          <div class="step-split">
+            <div>
+              <textarea id="f_problem" data-field="problem" rows="9"
+                placeholder="Describe the real-world problem..."></textarea>
+              <div class="counter-row">
+                <span class="word-counter" data-counter-for="f_problem">0 / 150 words</span>
+                <span class="field-status" data-status-for="problem"></span>
+              </div>
+            </div>
+            <aside class="step-feedback">
+              <h4><span class="mascot">🦊</span> Kino AI Feedback</h4>
+              <div class="feedback-body" data-feedback-body="problem">
+                <div class="feedback-empty">Write a couple of sentences — feedback appears here automatically once you
+                  pause.</div>
+              </div>
+            </aside>
+          </div>
+        </div>
+
+        <!-- STEP: idea (+ what's different) -->
+        <div class="w-step" data-step="idea">
+          <div class="step-head">
+            <span class="step-eyebrow">Step 2 of 5</span>
+            <h3>Your idea</h3>
+            <p class="step-hint">What you want to solve and your method — plus what sets it apart. Max 300 / 150 words.
+            </p>
+          </div>
+          <div class="step-split">
+            <div>
+              <label class="mini-label">Your idea</label>
+              <textarea id="f_idea" data-field="idea" rows="6" placeholder="Explain your idea..."></textarea>
+              <div class="counter-row">
+                <span class="word-counter" data-counter-for="f_idea">0 / 300 words</span>
+                <span class="field-status" data-status-for="idea"></span>
+              </div>
+            </div>
+            <aside class="step-feedback">
+              <h4><span class="mascot">🦊</span> Kino AI Feedback</h4>
+              <div class="feedback-body" data-feedback-body="idea">
+                <div class="feedback-empty">Write a couple of sentences — feedback appears here automatically once you
+                  pause.</div>
+              </div>
+            </aside>
+          </div>
+          <div class="step-split" style="margin-top:18px;">
+            <div>
+              <label class="mini-label">What makes it different</label>
+              <textarea id="f_different" data-field="different" rows="6"
+                placeholder="What sets your idea apart..."></textarea>
+              <div class="counter-row">
+                <span class="word-counter" data-counter-for="f_different">0 / 150 words</span>
+                <span class="field-status" data-status-for="different"></span>
+              </div>
+            </div>
+            <aside class="step-feedback">
+              <h4><span class="mascot">🦊</span> Kino AI Feedback</h4>
+              <div class="feedback-body" data-feedback-body="different">
+                <div class="feedback-empty">Write a couple of sentences — feedback appears here automatically once you
+                  pause.</div>
+              </div>
+            </aside>
+          </div>
+        </div>
+
+        <!-- STEP: sources + skills -->
+        <div class="w-step" data-step="context">
+          <div class="step-head">
+            <span class="step-eyebrow">Step 3 of 5</span>
+            <h3>Research &amp; skills</h3>
+            <p class="step-hint">What you read, and what you'd like to learn next.</p>
+          </div>
+          <div class="step-split">
+            <div>
+              <label class="mini-label">What did you read? (2-5 sources)</label>
+              <textarea id="f_sources" data-field="sources" rows="6" placeholder="List your sources..."></textarea>
+              <div class="counter-row">
+                <span class="word-counter" data-counter-for="f_sources">0 words</span>
+                <span class="field-status" data-status-for="sources"></span>
+              </div>
+            </div>
+            <aside class="step-feedback">
+              <h4><span class="mascot">🦊</span> Kino AI Feedback</h4>
+              <div class="feedback-body" data-feedback-body="sources">
+                <div class="feedback-empty">List a source or two — feedback appears here automatically once you pause.
+                </div>
+              </div>
+            </aside>
+          </div>
+          <div class="step-split" style="margin-top:18px;">
+            <div>
+              <label class="mini-label">Skills &amp; higher-education goals</label>
+              <textarea id="f_skills" data-field="skills" rows="6"
+                placeholder="Skills and education paths you want to explore..."></textarea>
+              <div class="counter-row">
+                <span class="word-counter" data-counter-for="f_skills">0 / 150 words</span>
+                <span class="field-status" data-status-for="skills"></span>
+              </div>
+            </div>
+            <aside class="step-feedback">
+              <h4><span class="mascot">🦊</span> Kino AI Feedback</h4>
+              <div class="feedback-body" data-feedback-body="skills">
+                <div class="feedback-empty">Write a couple of sentences — feedback appears here automatically once you
+                  pause.</div>
+              </div>
+            </aside>
+          </div>
+        </div>
+
+        <!-- STEP: about -->
+        <div class="w-step" data-step="about">
+          <div class="step-head">
+            <span class="step-eyebrow">Step 4 of 5</span>
+            <h3>About you</h3>
+            <p class="step-hint">Last thing — basic details for our records.</p>
+          </div>
+          <div class="about-grid">
+            <input type="text" id="f_name" placeholder="Full name" />
+            <input type="email" id="f_email" placeholder="Email ID" />
+            <input type="tel" id="f_phone" placeholder="Phone number" />
+            <input type="text" id="f_university" placeholder="University" />
+            <input type="text" id="f_degree" placeholder="Degree" />
+            <input type="text" id="f_branch" placeholder="Branch" />
+            <input type="text" id="f_year" placeholder="Year of study" class="full" />
+          </div>
+        </div>
+
+        <!-- STEP: review -->
+        <div class="w-step" data-step="review">
+          <div class="step-head">
+            <span class="step-eyebrow">Step 5 of 5</span>
+            <h3>Review &amp; submit</h3>
+            <p class="step-hint">Check everything below, then send it in. Click any field to jump back and edit it.</p>
+          </div>
+          <div class="review-list" id="reviewList"></div>
+        </div>
+
+        <!-- STEP: success -->
+        <div class="w-step" data-step="success">
+          <div class="success-body">
+            <div class="icon-big">✓</div>
+            <h2>Submission received!</h2>
+            <p>Thank you for sharing your idea. A copy is saved on this device — download it below for your records.</p>
+            <div class="success-actions">
+              <button class="btn btn-primary" id="downloadBtn">Download my submission</button>
+              <button class="btn btn-ghost" id="restartBtn">Submit another idea</button>
             </div>
           </div>
-          <aside class="step-feedback">
-            <h4><span class="mascot">🦊</span> Kino AI Feedback</h4>
-            <div class="feedback-body" data-feedback-body="problem"><div class="feedback-empty">Write a couple of sentences — feedback appears here automatically once you pause.</div></div>
-          </aside>
+        </div>
+
+        <div class="wizard-nav" id="wizardNav">
+          <button class="btn btn-ghost" id="wBack">← Back</button>
+          <span class="step-hint" id="stepHintMsg" style="margin:0;"></span>
+          <button class="btn btn-primary" id="wNext">Continue →</button>
         </div>
       </div>
+    </div>
+  </section>
 
-      <!-- STEP: sources -->
-      <div class="w-step" data-step="sources">
-        <div class="step-head">
-          <span class="step-eyebrow">Step 2 of 7</span>
-          <h3>What did you read?</h3>
-          <p class="step-hint">2-5 sources that helped you understand the problem, and ongoing research in this space.</p>
-        </div>
-        <div class="step-split">
-          <div>
-            <textarea id="f_sources" data-field="sources" rows="10" placeholder="List your sources..."></textarea>
-            <div class="counter-row">
-              <span class="word-counter" data-counter-for="f_sources">0 words</span>
-              <span class="field-status" data-status-for="sources"></span>
-            </div>
-          </div>
-          <aside class="step-feedback">
-            <h4><span class="mascot">🦊</span> Kino AI Feedback</h4>
-            <div class="feedback-body" data-feedback-body="sources"><div class="feedback-empty">List a source or two — feedback appears here automatically once you pause.</div></div>
-          </aside>
-        </div>
-      </div>
+  <footer>Education Japan · Global Aspirations — Earth &amp; Space Science Research Challenge · Prototype</footer>
 
-      <!-- STEP: idea -->
-      <div class="w-step" data-step="idea">
-        <div class="step-head">
-          <span class="step-eyebrow">Step 3 of 7</span>
-          <h3>Your idea</h3>
-          <p class="step-hint">Keep it simple — what you want to solve and your method of solving it. Max 300 words.</p>
-        </div>
-        <div class="step-split">
-          <div>
-            <textarea id="f_idea" data-field="idea" rows="10" placeholder="Explain your idea..."></textarea>
-            <div class="counter-row">
-              <span class="word-counter" data-counter-for="f_idea">0 / 300 words</span>
-              <span class="field-status" data-status-for="idea"></span>
-            </div>
-          </div>
-          <aside class="step-feedback">
-            <h4><span class="mascot">🦊</span> Kino AI Feedback</h4>
-            <div class="feedback-body" data-feedback-body="idea"><div class="feedback-empty">Write a couple of sentences — feedback appears here automatically once you pause.</div></div>
-          </aside>
-        </div>
-      </div>
-
-      <!-- STEP: different -->
-      <div class="w-step" data-step="different">
-        <div class="step-head">
-          <span class="step-eyebrow">Step 4 of 7</span>
-          <h3>What makes your idea different?</h3>
-          <p class="step-hint">What part of your approach sets it apart? Max 150 words.</p>
-        </div>
-        <div class="step-split">
-          <div>
-            <textarea id="f_different" data-field="different" rows="10" placeholder="What sets your idea apart..."></textarea>
-            <div class="counter-row">
-              <span class="word-counter" data-counter-for="f_different">0 / 150 words</span>
-              <span class="field-status" data-status-for="different"></span>
-            </div>
-          </div>
-          <aside class="step-feedback">
-            <h4><span class="mascot">🦊</span> Kino AI Feedback</h4>
-            <div class="feedback-body" data-feedback-body="different"><div class="feedback-empty">Write a couple of sentences — feedback appears here automatically once you pause.</div></div>
-          </aside>
-        </div>
-      </div>
-
-      <!-- STEP: skills -->
-      <div class="w-step" data-step="skills">
-        <div class="step-head">
-          <span class="step-eyebrow">Step 5 of 7</span>
-          <h3>What skills would you want to learn?</h3>
-          <p class="step-hint">Skills and higher-education opportunities you'd like to explore. Max 150 words.</p>
-        </div>
-        <div class="step-split">
-          <div>
-            <textarea id="f_skills" data-field="skills" rows="10" placeholder="Skills and education paths you want to explore..."></textarea>
-            <div class="counter-row">
-              <span class="word-counter" data-counter-for="f_skills">0 / 150 words</span>
-              <span class="field-status" data-status-for="skills"></span>
-            </div>
-          </div>
-          <aside class="step-feedback">
-            <h4><span class="mascot">🦊</span> Kino AI Feedback</h4>
-            <div class="feedback-body" data-feedback-body="skills"><div class="feedback-empty">Write a couple of sentences — feedback appears here automatically once you pause.</div></div>
-          </aside>
-        </div>
-      </div>
-
-      <!-- STEP: about -->
-      <div class="w-step" data-step="about">
-        <div class="step-head">
-          <span class="step-eyebrow">Step 6 of 7</span>
-          <h3>About you</h3>
-          <p class="step-hint">Last thing — basic details for our records.</p>
-        </div>
-        <div class="about-grid">
-          <input type="text" id="f_name" placeholder="Full name" />
-          <input type="email" id="f_email" placeholder="Email ID" />
-          <input type="tel" id="f_phone" placeholder="Phone number" />
-          <input type="text" id="f_university" placeholder="University" />
-          <input type="text" id="f_degree" placeholder="Degree" />
-          <input type="text" id="f_branch" placeholder="Branch" />
-          <input type="text" id="f_year" placeholder="Year of study" class="full" />
-        </div>
-      </div>
-
-      <!-- STEP: review -->
-      <div class="w-step" data-step="review">
-        <div class="step-head">
-          <span class="step-eyebrow">Step 7 of 7</span>
-          <h3>Review &amp; submit</h3>
-          <p class="step-hint">Check everything below, then send it in. Click any field to jump back and edit it.</p>
-        </div>
-        <div class="review-list" id="reviewList"></div>
-      </div>
-
-      <!-- STEP: success -->
-      <div class="w-step" data-step="success">
-        <div class="success-body">
-          <div class="icon-big">✓</div>
-          <h2>Submission received!</h2>
-          <p>Thank you for sharing your idea. A copy is saved on this device — download it below for your records.</p>
-          <div class="success-actions">
-            <button class="btn btn-primary" id="downloadBtn">Download my submission</button>
-            <button class="btn btn-ghost" id="restartBtn">Submit another idea</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="wizard-nav" id="wizardNav">
-        <button class="btn btn-ghost" id="wBack">← Back</button>
-        <span class="step-hint" id="stepHintMsg" style="margin:0;"></span>
-        <button class="btn btn-primary" id="wNext">Continue →</button>
+  <div class="modal-overlay" id="keyModalOverlay">
+    <div class="modal">
+      <h3>API Settings</h3>
+      <label for="apiKeyInput">AI Provider's API Key</label>
+      <input type="text" id="apiKeyInput" placeholder="gsk_..." autocomplete="off" />
+      <label for="modelInput">Model</label>
+      <select id="modelInput">
+        <option value="llama-3.3-70b-versatile">llama-3.3-70b-versatile (recommended)</option>
+        <option value="llama-3.1-8b-instant">llama-3.1-8b-instant (fastest)</option>
+        <option value="gemma2-9b-it">gemma2-9b-it</option>
+      </select>
+      <div class="modal-actions">
+        <button class="btn btn-ghost" id="closeKeyModal">Cancel</button>
+        <button class="btn btn-primary" id="saveKeyBtn">Save key</button>
       </div>
     </div>
   </div>
-</section>
 
-<footer>Education Japan · Global Aspirations — Earth &amp; Space Science Research Challenge · Prototype</footer>
-
-<div class="modal-overlay" id="keyModalOverlay">
-  <div class="modal">
-    <h3>Groq API Settings</h3>
-    <p class="desc">This static prototype calls API directly from your browser. Paste your provided key below. It's stored only in this browser's localStorage and sent only to selected model's API, never to any server of ours.</p>
-    <label for="apiKeyInput">Groq API Key</label>
-    <input type="text" id="apiKeyInput" placeholder="gsk_..." autocomplete="off" />
-    <label for="modelInput">Model</label>
-    <select id="modelInput">
-      <option value="llama-3.3-70b-versatile">llama-3.3-70b-versatile (recommended)</option>
-      <option value="llama-3.1-8b-instant">llama-3.1-8b-instant (fastest)</option>
-      <option value="gemma2-9b-it">gemma2-9b-it</option>
-    </select>
-    <div class="modal-actions">
-      <button class="btn btn-ghost" id="closeKeyModal">Cancel</button>
-      <button class="btn btn-primary" id="saveKeyBtn">Save key</button>
+  <div class="modal-overlay" id="consultModalOverlay">
+    <div class="modal">
+      <h3>🎓 PhD Application Consultation</h3>
+      <p class="desc">Beyond this one idea — get full, 1:1 guidance on your PhD research application to Japanese
+        universities from our admissions team: lab &amp; advisor selection, SOP review, funding, and timelines. Leave
+        your details and we'll reach out within 2 business days.</p>
+      <label for="consultName">Name</label>
+      <input type="text" id="consultName" placeholder="Full name" />
+      <label for="consultEmail">Email</label>
+      <input type="email" id="consultEmail" placeholder="you@example.com" />
+      <label for="consultMessage">What would you like help with?</label>
+      <textarea id="consultMessage" rows="3"
+        placeholder="e.g. choosing a lab, SOP review, funding, timelines..."></textarea>
+      <div class="modal-actions">
+        <button class="btn btn-ghost" id="closeConsultModal">Cancel</button>
+        <button class="btn btn-primary" id="sendConsultBtn">Request Consultation</button>
+      </div>
     </div>
   </div>
-</div>
 
-<div class="modal-overlay" id="consultModalOverlay">
-  <div class="modal">
-    <h3>🎓 PhD Application Consultation</h3>
-    <p class="desc">Beyond this one idea — get full, 1:1 guidance on your PhD research application to Japanese universities from our admissions team: lab &amp; advisor selection, SOP review, funding, and timelines. Leave your details and we'll reach out within 2 business days.</p>
-    <label for="consultName">Name</label>
-    <input type="text" id="consultName" placeholder="Full name" />
-    <label for="consultEmail">Email</label>
-    <input type="email" id="consultEmail" placeholder="you@example.com" />
-    <label for="consultMessage">What would you like help with?</label>
-    <textarea id="consultMessage" rows="3" placeholder="e.g. choosing a lab, SOP review, funding, timelines..."></textarea>
-    <div class="modal-actions">
-      <button class="btn btn-ghost" id="closeConsultModal">Cancel</button>
-      <button class="btn btn-primary" id="sendConsultBtn">Request Consultation</button>
-    </div>
-  </div>
-</div>
+  <div class="toast" id="toast"></div>
 
-<div class="toast" id="toast"></div>
+  <script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
+  <script>
+    /* ================= HERO 3D SCENE — Earth orbited by the 4 challenge tracks ================= */
+    (function initHero() {
+      const heroEl = document.getElementById('hero');
+      const canvas = document.getElementById('hero-canvas');
+      const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(55, 1, 0.1, 100);
+      camera.position.z = 11;
 
-<script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
-<script>
-/* ================= HERO 3D SCENE — Earth orbited by the 4 challenge tracks ================= */
-(function initHero() {
-  const heroEl = document.getElementById('hero');
-  const canvas = document.getElementById('hero-canvas');
-  const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(55, 1, 0.1, 100);
-  camera.position.z = 11;
+      function size() { return { w: heroEl.clientWidth, h: heroEl.clientHeight }; }
+      function resize() {
+        const { w, h } = size();
+        renderer.setSize(w, h);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        camera.aspect = w / h;
+        camera.updateProjectionMatrix();
+      }
+      resize();
+      window.addEventListener('resize', resize);
 
-  function size() { return { w: heroEl.clientWidth, h: heroEl.clientHeight }; }
-  function resize() {
-    const { w, h } = size();
-    renderer.setSize(w, h);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    camera.aspect = w / h;
-    camera.updateProjectionMatrix();
-  }
-  resize();
-  window.addEventListener('resize', resize);
+      const earthGeo = new THREE.IcosahedronGeometry(2.3, 2);
+      const earthMat = new THREE.MeshBasicMaterial({ color: 0xb5495a, wireframe: true, transparent: true, opacity: 0.4 });
+      scene.add(new THREE.Mesh(earthGeo, earthMat));
 
-  const earthGeo = new THREE.IcosahedronGeometry(2.3, 2);
-  const earthMat = new THREE.MeshBasicMaterial({ color: 0xb5495a, wireframe: true, transparent: true, opacity: 0.4 });
-  scene.add(new THREE.Mesh(earthGeo, earthMat));
+      const coreGeo = new THREE.IcosahedronGeometry(1.8, 1);
+      const coreMat = new THREE.MeshBasicMaterial({ color: 0xffb37a, wireframe: true, transparent: true, opacity: 0.16 });
+      const core = new THREE.Mesh(coreGeo, coreMat);
+      scene.add(core);
 
-  const coreGeo = new THREE.IcosahedronGeometry(1.8, 1);
-  const coreMat = new THREE.MeshBasicMaterial({ color: 0xffb37a, wireframe: true, transparent: true, opacity: 0.16 });
-  const core = new THREE.Mesh(coreGeo, coreMat);
-  scene.add(core);
+      const TRACKS = [
+        { color: 0xff8f6b, radius: 3.0, tilt: 0.18, speed: 0.35, phase: 0 },
+        { color: 0x7ac4ff, radius: 3.6, tilt: -0.28, speed: 0.26, phase: 1.6 },
+        { color: 0x6ee7c5, radius: 4.2, tilt: 0.36, speed: 0.2, phase: 3.2 },
+        { color: 0xffb37a, radius: 4.8, tilt: -0.14, speed: 0.15, phase: 4.7 }
+      ];
 
-  const TRACKS = [
-    { color: 0xff8f6b, radius: 3.0, tilt: 0.18, speed: 0.35, phase: 0 },
-    { color: 0x7ac4ff, radius: 3.6, tilt: -0.28, speed: 0.26, phase: 1.6 },
-    { color: 0x6ee7c5, radius: 4.2, tilt: 0.36, speed: 0.2, phase: 3.2 },
-    { color: 0xffb37a, radius: 4.8, tilt: -0.14, speed: 0.15, phase: 4.7 }
-  ];
+      function makeGlowSprite(colorHex) {
+        const c = document.createElement('canvas');
+        c.width = 128; c.height = 128;
+        const ctx = c.getContext('2d');
+        const col = new THREE.Color(colorHex);
+        const r = Math.round(col.r * 255), g = Math.round(col.g * 255), b = Math.round(col.b * 255);
+        const grad = ctx.createRadialGradient(64, 64, 0, 64, 64, 64);
+        grad.addColorStop(0, `rgba(${r},${g},${b},1)`);
+        grad.addColorStop(0.3, `rgba(${r},${g},${b},0.6)`);
+        grad.addColorStop(1, `rgba(${r},${g},${b},0)`);
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, 128, 128);
+        const tex = new THREE.CanvasTexture(c);
+        const mat = new THREE.SpriteMaterial({ map: tex, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false });
+        const sprite = new THREE.Sprite(mat);
+        sprite.scale.set(0.55, 0.55, 0.55);
+        return sprite;
+      }
 
-  function makeGlowSprite(colorHex) {
-    const c = document.createElement('canvas');
-    c.width = 128; c.height = 128;
-    const ctx = c.getContext('2d');
-    const col = new THREE.Color(colorHex);
-    const r = Math.round(col.r * 255), g = Math.round(col.g * 255), b = Math.round(col.b * 255);
-    const grad = ctx.createRadialGradient(64, 64, 0, 64, 64, 64);
-    grad.addColorStop(0, `rgba(${r},${g},${b},1)`);
-    grad.addColorStop(0.3, `rgba(${r},${g},${b},0.6)`);
-    grad.addColorStop(1, `rgba(${r},${g},${b},0)`);
-    ctx.fillStyle = grad;
-    ctx.fillRect(0, 0, 128, 128);
-    const tex = new THREE.CanvasTexture(c);
-    const mat = new THREE.SpriteMaterial({ map: tex, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false });
-    const sprite = new THREE.Sprite(mat);
-    sprite.scale.set(0.55, 0.55, 0.55);
-    return sprite;
-  }
+      TRACKS.forEach((t) => {
+        const ringGeo = new THREE.TorusGeometry(t.radius, 0.006, 8, 128);
+        const ringMat = new THREE.MeshBasicMaterial({ color: t.color, transparent: true, opacity: 0.28 });
+        const ring = new THREE.Mesh(ringGeo, ringMat);
+        ring.rotation.x = Math.PI / 2 + t.tilt;
+        scene.add(ring);
 
-  TRACKS.forEach((t) => {
-    const ringGeo = new THREE.TorusGeometry(t.radius, 0.006, 8, 128);
-    const ringMat = new THREE.MeshBasicMaterial({ color: t.color, transparent: true, opacity: 0.28 });
-    const ring = new THREE.Mesh(ringGeo, ringMat);
-    ring.rotation.x = Math.PI / 2 + t.tilt;
-    scene.add(ring);
+        t.sprite = makeGlowSprite(t.color);
+        scene.add(t.sprite);
+      });
 
-    t.sprite = makeGlowSprite(t.color);
-    scene.add(t.sprite);
-  });
+      const starCount = 500;
+      const starGeo = new THREE.BufferGeometry();
+      const positions = new Float32Array(starCount * 3);
+      for (let i = 0; i < starCount; i++) {
+        positions[i * 3] = (Math.random() - 0.5) * 40;
+        positions[i * 3 + 1] = (Math.random() - 0.5) * 40;
+        positions[i * 3 + 2] = (Math.random() - 0.5) * 40 - 8;
+      }
+      starGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+      const starMat = new THREE.PointsMaterial({ color: 0xfdf3ee, size: 0.045, transparent: true, opacity: 0.55 });
+      scene.add(new THREE.Points(starGeo, starMat));
 
-  const starCount = 500;
-  const starGeo = new THREE.BufferGeometry();
-  const positions = new Float32Array(starCount * 3);
-  for (let i = 0; i < starCount; i++) {
-    positions[i * 3] = (Math.random() - 0.5) * 40;
-    positions[i * 3 + 1] = (Math.random() - 0.5) * 40;
-    positions[i * 3 + 2] = (Math.random() - 0.5) * 40 - 8;
-  }
-  starGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-  const starMat = new THREE.PointsMaterial({ color: 0xfdf3ee, size: 0.045, transparent: true, opacity: 0.55 });
-  scene.add(new THREE.Points(starGeo, starMat));
+      let mouseX = 0, mouseY = 0;
+      window.addEventListener('mousemove', (e) => {
+        mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+        mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+      });
 
-  let mouseX = 0, mouseY = 0;
-  window.addEventListener('mousemove', (e) => {
-    mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
-    mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
-  });
+      const clock = new THREE.Clock();
+      function animate() {
+        requestAnimationFrame(animate);
+        const t = clock.getElapsedTime();
 
-  const clock = new THREE.Clock();
-  function animate() {
-    requestAnimationFrame(animate);
-    const t = clock.getElapsedTime();
+        core.rotation.y = -t * 0.05;
 
-    core.rotation.y = -t * 0.05;
+        TRACKS.forEach((track) => {
+          const angle = t * track.speed + track.phase;
+          const x = track.radius * Math.cos(angle);
+          const zBase = track.radius * Math.sin(angle);
+          const y = zBase * Math.sin(track.tilt);
+          const z = zBase * Math.cos(track.tilt);
+          track.sprite.position.set(x, y, z);
+        });
 
-    TRACKS.forEach((track) => {
-      const angle = t * track.speed + track.phase;
-      const x = track.radius * Math.cos(angle);
-      const zBase = track.radius * Math.sin(angle);
-      const y = zBase * Math.sin(track.tilt);
-      const z = zBase * Math.cos(track.tilt);
-      track.sprite.position.set(x, y, z);
+        camera.position.x += (mouseX * 1.0 - camera.position.x) * 0.02;
+        camera.position.y += (-mouseY * 1.0 - camera.position.y) * 0.02;
+        camera.lookAt(0, 0, 0);
+
+        renderer.render(scene, camera);
+      }
+      animate();
+    })();
+
+    /* ================= STATE ================= */
+    const CHALLENGE_LABELS = {
+      climate: 'AI for Climate & Disaster Intelligence',
+      satellites: 'Smart Earth Observations Using Satellites',
+      water: 'Future of Water Security',
+      mobility: 'Future Mobility through Space Technology'
+    };
+    const STEPS = ['problem', 'idea', 'context', 'about', 'review'];
+    const STEP_LABELS = { problem: 'Problem', idea: 'Idea', context: 'Research', about: 'About', review: 'Review' };
+    const LIMITS = { f_problem: 150, f_idea: 300, f_different: 150, f_skills: 150 };
+
+    const state = { challenge: null, currentStep: 0, maxReached: 0 };
+
+    const FIELD_PROMPTS = {
+      problem: { label: 'the real-world problem statement', limit: 150, rubric: 'Judge against: (1) names a specific, concrete real-world problem (not vague), (2) clearly states WHO benefits and HOW, (3) explains WHY this matters now, (4) fits the chosen challenge track, (5) stays near the 150-word limit.' },
+      sources: { label: 'the research sources (What did you read?)', limit: null, rubric: 'Judge against: (1) lists 2-5 concrete, credible, checkable sources, (2) sources are relevant to the stated problem, (3) shows awareness of ongoing research, not just background reading.' },
+      idea: { label: 'the proposed idea/solution', limit: 300, rubric: 'Judge against: (1) idea is a clear, simple, specific method, (2) technically plausible for the chosen track, (3) explains the mechanism of how it solves the problem, (4) stays near the 300-word limit, (5) appropriately scoped for a student project.' },
+      different: { label: 'what makes the idea different', limit: 150, rubric: 'Judge against: (1) names a genuine point of differentiation vs obvious approaches, (2) is specific rather than generic, (3) is consistent with the idea described earlier.' },
+      skills: { label: 'skills and higher-education opportunities the student wants to explore', limit: 150, rubric: 'Judge against: (1) names specific skills/tools relevant to the track and idea, (2) connects skills to a plausible higher-education/career path, (3) shows genuine reflection.' }
+    };
+
+    function wordCount(text) { return (text || '').trim().split(/\s+/).filter(Boolean).length; }
+    function escapeHtml(str) { const d = document.createElement('div'); d.textContent = str; return d.innerHTML; }
+    function fieldEl(id) { return document.getElementById(id); }
+
+    /* ================= NAV / SCROLL ================= */
+    document.getElementById('ctaExplore').addEventListener('click', () => document.getElementById('challenges').scrollIntoView({ behavior: 'smooth' }));
+    document.getElementById('ctaForm').addEventListener('click', () => document.getElementById('wizard-section').scrollIntoView({ behavior: 'smooth' }));
+    document.getElementById('ctaNav').addEventListener('click', () => document.getElementById('wizard-section').scrollIntoView({ behavior: 'smooth' }));
+
+    /* ================= CHALLENGE SELECTION ================= */
+    function selectChallenge(key) {
+      state.challenge = key;
+      document.querySelectorAll('.challenge-card').forEach((c) => c.classList.toggle('selected', c.dataset.key === key));
+      document.querySelectorAll('.track-chip').forEach((c) => c.classList.toggle('active', c.dataset.key === key));
+    }
+
+    document.querySelectorAll('.challenge-card').forEach((card) => {
+      card.querySelector('.pick-btn').addEventListener('click', () => {
+        selectChallenge(card.dataset.key);
+        document.getElementById('wizard-section').scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+    document.querySelectorAll('.track-chip').forEach((chip) => {
+      chip.addEventListener('click', () => selectChallenge(chip.dataset.key));
     });
 
-    camera.position.x += (mouseX * 1.0 - camera.position.x) * 0.02;
-    camera.position.y += (-mouseY * 1.0 - camera.position.y) * 0.02;
-    camera.lookAt(0, 0, 0);
+    /* ================= WIZARD NAVIGATION ================= */
+    const wizardProgress = document.getElementById('wizardProgress');
+    const wBack = document.getElementById('wBack');
+    const wNext = document.getElementById('wNext');
+    const stepHintMsg = document.getElementById('stepHintMsg');
 
-    renderer.render(scene, camera);
-  }
-  animate();
-})();
+    function renderProgress() {
+      let html = '';
+      STEPS.forEach((s, i) => {
+        const cls = ['wp-item'];
+        if (i === state.currentStep) cls.push('current');
+        if (i < state.currentStep) cls.push('done');
+        if (i <= state.maxReached) cls.push('enabled');
+        html += `<div class="${cls.join(' ')}" data-index="${i}"><span class="wp-dot">${i < state.currentStep ? '✓' : i + 1}</span><span class="wp-label">${STEP_LABELS[s]}</span></div>`;
+        if (i < STEPS.length - 1) html += '<div class="wp-line"></div>';
+      });
+      wizardProgress.innerHTML = html;
+      wizardProgress.querySelectorAll('.wp-item.enabled').forEach((el) => {
+        el.addEventListener('click', () => showStep(Number(el.dataset.index)));
+      });
+    }
 
-/* ================= STATE ================= */
-const CHALLENGE_LABELS = {
-  climate: 'AI for Climate & Disaster Intelligence',
-  satellites: 'Smart Earth Observations Using Satellites',
-  water: 'Future of Water Security',
-  mobility: 'Future Mobility through Space Technology'
-};
-const STEPS = ['problem', 'sources', 'idea', 'different', 'skills', 'about', 'review'];
-const STEP_LABELS = { problem: 'Problem', sources: 'Sources', idea: 'Idea', different: 'Different', skills: 'Skills', about: 'About', review: 'Review' };
-const LIMITS = { f_problem: 150, f_idea: 300, f_different: 150, f_skills: 150 };
+    function validateStep(i) {
+      switch (STEPS[i]) {
+        case 'problem': return !!state.challenge && wordCount(fieldEl('f_problem').value) >= 5;
+        case 'about': return fieldEl('f_name').value.trim().length > 0 && fieldEl('f_email').value.trim().length > 0;
+        case 'idea': return wordCount(fieldEl('f_idea').value) >= 5;
+        default: return true;
+      }
+    }
 
-const state = { challenge: null, currentStep: 0, maxReached: 0 };
+    function stepValidationMessage(i) {
+      switch (STEPS[i]) {
+        case 'problem': return !state.challenge ? 'Pick a challenge track to continue.' : 'Write a few words about the problem to continue.';
+        case 'about': return 'Add at least your name and email to continue.';
+        case 'idea': return 'Write a few words about your idea to continue.';
+        default: return '';
+      }
+    }
 
-const FIELD_PROMPTS = {
-  problem: { label: 'the real-world problem statement', limit: 150, rubric: 'Judge against: (1) names a specific, concrete real-world problem (not vague), (2) clearly states WHO benefits and HOW, (3) explains WHY this matters now, (4) fits the chosen challenge track, (5) stays near the 150-word limit.' },
-  sources: { label: 'the research sources (What did you read?)', limit: null, rubric: 'Judge against: (1) lists 2-5 concrete, credible, checkable sources, (2) sources are relevant to the stated problem, (3) shows awareness of ongoing research, not just background reading.' },
-  idea: { label: 'the proposed idea/solution', limit: 300, rubric: 'Judge against: (1) idea is a clear, simple, specific method, (2) technically plausible for the chosen track, (3) explains the mechanism of how it solves the problem, (4) stays near the 300-word limit, (5) appropriately scoped for a student project.' },
-  different: { label: 'what makes the idea different', limit: 150, rubric: 'Judge against: (1) names a genuine point of differentiation vs obvious approaches, (2) is specific rather than generic, (3) is consistent with the idea described earlier.' },
-  skills: { label: 'skills and higher-education opportunities the student wants to explore', limit: 150, rubric: 'Judge against: (1) names specific skills/tools relevant to the track and idea, (2) connects skills to a plausible higher-education/career path, (3) shows genuine reflection.' }
-};
+    function showStep(i) {
+      state.currentStep = i;
+      state.maxReached = Math.max(state.maxReached, i);
+      document.querySelectorAll('.w-step').forEach((el) => el.classList.toggle('active', el.dataset.step === STEPS[i]));
+      renderProgress();
+      wBack.style.visibility = i === 0 ? 'hidden' : 'visible';
+      wNext.textContent = STEPS[i] === 'review' ? 'Submit my idea →' : 'Continue →';
+      stepHintMsg.textContent = '';
+      document.getElementById('wizardNav').style.display = 'flex';
+      if (STEPS[i] === 'review') buildReview();
+      document.getElementById('wizard-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
 
-function wordCount(text) { return (text || '').trim().split(/\s+/).filter(Boolean).length; }
-function escapeHtml(str) { const d = document.createElement('div'); d.textContent = str; return d.innerHTML; }
-function fieldEl(id) { return document.getElementById(id); }
+    wBack.addEventListener('click', () => { if (state.currentStep > 0) showStep(state.currentStep - 1); });
+    wNext.addEventListener('click', () => {
+      if (STEPS[state.currentStep] === 'review') { submitForm(); return; }
+      if (!validateStep(state.currentStep)) { stepHintMsg.textContent = stepValidationMessage(state.currentStep); stepHintMsg.style.color = 'var(--bad)'; return; }
+      showStep(state.currentStep + 1);
+    });
 
-/* ================= NAV / SCROLL ================= */
-document.getElementById('ctaExplore').addEventListener('click', () => document.getElementById('challenges').scrollIntoView({ behavior: 'smooth' }));
-document.getElementById('ctaForm').addEventListener('click', () => document.getElementById('wizard-section').scrollIntoView({ behavior: 'smooth' }));
-document.getElementById('ctaNav').addEventListener('click', () => document.getElementById('wizard-section').scrollIntoView({ behavior: 'smooth' }));
-
-/* ================= CHALLENGE SELECTION ================= */
-function selectChallenge(key) {
-  state.challenge = key;
-  document.querySelectorAll('.challenge-card').forEach((c) => c.classList.toggle('selected', c.dataset.key === key));
-  document.querySelectorAll('.track-chip').forEach((c) => c.classList.toggle('active', c.dataset.key === key));
-}
-
-document.querySelectorAll('.challenge-card').forEach((card) => {
-  card.querySelector('.pick-btn').addEventListener('click', () => {
-    selectChallenge(card.dataset.key);
-    document.getElementById('wizard-section').scrollIntoView({ behavior: 'smooth' });
-  });
-});
-document.querySelectorAll('.track-chip').forEach((chip) => {
-  chip.addEventListener('click', () => selectChallenge(chip.dataset.key));
-});
-
-/* ================= WIZARD NAVIGATION ================= */
-const wizardProgress = document.getElementById('wizardProgress');
-const wBack = document.getElementById('wBack');
-const wNext = document.getElementById('wNext');
-const stepHintMsg = document.getElementById('stepHintMsg');
-
-function renderProgress() {
-  let html = '';
-  STEPS.forEach((s, i) => {
-    const cls = ['wp-item'];
-    if (i === state.currentStep) cls.push('current');
-    if (i < state.currentStep) cls.push('done');
-    if (i <= state.maxReached) cls.push('enabled');
-    html += `<div class="${cls.join(' ')}" data-index="${i}"><span class="wp-dot">${i < state.currentStep ? '✓' : i + 1}</span><span class="wp-label">${STEP_LABELS[s]}</span></div>`;
-    if (i < STEPS.length - 1) html += '<div class="wp-line"></div>';
-  });
-  wizardProgress.innerHTML = html;
-  wizardProgress.querySelectorAll('.wp-item.enabled').forEach((el) => {
-    el.addEventListener('click', () => showStep(Number(el.dataset.index)));
-  });
-}
-
-function validateStep(i) {
-  switch (STEPS[i]) {
-    case 'problem': return !!state.challenge && wordCount(fieldEl('f_problem').value) >= 5;
-    case 'about': return fieldEl('f_name').value.trim().length > 0 && fieldEl('f_email').value.trim().length > 0;
-    case 'idea': return wordCount(fieldEl('f_idea').value) >= 5;
-    default: return true;
-  }
-}
-
-function stepValidationMessage(i) {
-  switch (STEPS[i]) {
-    case 'problem': return !state.challenge ? 'Pick a challenge track to continue.' : 'Write a few words about the problem to continue.';
-    case 'about': return 'Add at least your name and email to continue.';
-    case 'idea': return 'Write a few words about your idea to continue.';
-    default: return '';
-  }
-}
-
-function showStep(i) {
-  state.currentStep = i;
-  state.maxReached = Math.max(state.maxReached, i);
-  document.querySelectorAll('.w-step').forEach((el) => el.classList.toggle('active', el.dataset.step === STEPS[i]));
-  renderProgress();
-  wBack.style.visibility = i === 0 ? 'hidden' : 'visible';
-  wNext.textContent = STEPS[i] === 'review' ? 'Submit my idea →' : 'Continue →';
-  stepHintMsg.textContent = '';
-  document.getElementById('wizardNav').style.display = 'flex';
-  if (STEPS[i] === 'review') buildReview();
-  document.getElementById('wizard-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
-
-wBack.addEventListener('click', () => { if (state.currentStep > 0) showStep(state.currentStep - 1); });
-wNext.addEventListener('click', () => {
-  if (STEPS[state.currentStep] === 'review') { submitForm(); return; }
-  if (!validateStep(state.currentStep)) { stepHintMsg.textContent = stepValidationMessage(state.currentStep); stepHintMsg.style.color = 'var(--bad)'; return; }
-  showStep(state.currentStep + 1);
-});
-
-function buildReview() {
-  const rows = [
-    { label: 'Challenge track', value: state.challenge ? CHALLENGE_LABELS[state.challenge] : '(not selected)', step: 0 },
-    { label: 'Problem', value: fieldEl('f_problem').value || '(empty)', step: 0 },
-    { label: 'Sources', value: fieldEl('f_sources').value || '(empty)', step: 1 },
-    { label: 'Idea', value: fieldEl('f_idea').value || '(empty)', step: 2 },
-    { label: "What's different", value: fieldEl('f_different').value || '(empty)', step: 3 },
-    { label: 'Skills to learn', value: fieldEl('f_skills').value || '(empty)', step: 4 },
-    { label: 'Name / Email', value: `${fieldEl('f_name').value} · ${fieldEl('f_email').value}`, step: 5 }
-  ];
-  document.getElementById('reviewList').innerHTML = rows.map((r) => `
+    function buildReview() {
+      const rows = [
+        { label: 'Challenge track', value: state.challenge ? CHALLENGE_LABELS[state.challenge] : '(not selected)', step: 0 },
+        { label: 'Problem', value: fieldEl('f_problem').value || '(empty)', step: 0 },
+        { label: 'Idea', value: fieldEl('f_idea').value || '(empty)', step: 1 },
+        { label: "What's different", value: fieldEl('f_different').value || '(empty)', step: 1 },
+        { label: 'Sources', value: fieldEl('f_sources').value || '(empty)', step: 2 },
+        { label: 'Skills to learn', value: fieldEl('f_skills').value || '(empty)', step: 2 },
+        { label: 'Name / Email', value: `${fieldEl('f_name').value} · ${fieldEl('f_email').value}`, step: 3 }
+      ];
+      document.getElementById('reviewList').innerHTML = rows.map((r) => `
     <div class="review-row">
       <div style="flex:1"><div class="rl">${escapeHtml(r.label)}</div><div class="rv">${escapeHtml(r.value)}</div></div>
       <button class="redit" data-jump="${r.step}">Edit</button>
     </div>`).join('');
-  document.querySelectorAll('[data-jump]').forEach((btn) => btn.addEventListener('click', () => showStep(Number(btn.dataset.jump))));
-}
-
-/* ================= WORD COUNTERS + LIVE FEEDBACK ================= */
-document.querySelectorAll('textarea[data-field]').forEach((ta) => {
-  const counterEl = document.querySelector(`[data-counter-for="${ta.id}"]`);
-  const limit = LIMITS[ta.id];
-  ta.addEventListener('input', () => {
-    const wc = wordCount(ta.value);
-    if (counterEl) {
-      counterEl.textContent = limit ? `${wc} / ${limit} words` : `${wc} words`;
-      counterEl.classList.toggle('over', limit && wc > limit);
+      document.querySelectorAll('[data-jump]').forEach((btn) => btn.addEventListener('click', () => showStep(Number(btn.dataset.jump))));
     }
-    scheduleFeedback(ta);
-  });
-});
 
-const debounceTimers = {};
-function scheduleFeedback(ta) {
-  const field = ta.dataset.field;
-  clearTimeout(debounceTimers[field]);
-  const statusEl = document.querySelector(`[data-status-for="${field}"]`);
-  if (wordCount(ta.value) < 5) { if (statusEl) { statusEl.textContent = ''; statusEl.className = 'field-status'; } return; }
-  if (statusEl) { statusEl.textContent = 'waiting to pause…'; statusEl.className = 'field-status'; }
-  debounceTimers[field] = setTimeout(() => requestFeedback(field, ta.value), 1400);
-}
+    /* ================= WORD COUNTERS + LIVE FEEDBACK ================= */
+    document.querySelectorAll('textarea[data-field]').forEach((ta) => {
+      const counterEl = document.querySelector(`[data-counter-for="${ta.id}"]`);
+      const limit = LIMITS[ta.id];
+      ta.addEventListener('input', () => {
+        const wc = wordCount(ta.value);
+        if (counterEl) {
+          counterEl.textContent = limit ? `${wc} / ${limit} words` : `${wc} words`;
+          counterEl.classList.toggle('over', limit && wc > limit);
+        }
+        scheduleFeedback(ta);
+      });
+    });
 
-function verdictClass(text) {
-  const m = text.match(/\[(.*?)\]/);
-  if (!m) return '';
-  const v = m[1].toLowerCase();
-  if (v.includes('strong')) return 'strong';
-  if (v.includes('promising')) return 'promising';
-  return 'needs-work';
-}
+    const debounceTimers = {};
+    function scheduleFeedback(ta) {
+      const field = ta.dataset.field;
+      clearTimeout(debounceTimers[field]);
+      const statusEl = document.querySelector(`[data-status-for="${field}"]`);
+      if (wordCount(ta.value) < 5) { if (statusEl) { statusEl.textContent = ''; statusEl.className = 'field-status'; } return; }
+      if (statusEl) { statusEl.textContent = 'waiting to pause…'; statusEl.className = 'field-status'; }
+      debounceTimers[field] = setTimeout(() => requestFeedback(field, ta.value), 1400);
+    }
 
-async function requestFeedback(field, text) {
-  const apiKey = localStorage.getItem('groq_api_key') || '';
-  const model = localStorage.getItem('groq_model') || 'llama-3.3-70b-versatile';
-  const statusEl = document.querySelector(`[data-status-for="${field}"]`);
-  const bodyEl = document.querySelector(`[data-feedback-body="${field}"]`);
-  const spec = FIELD_PROMPTS[field];
+    function verdictClass(text) {
+      const m = text.match(/\[(.*?)\]/);
+      if (!m) return '';
+      const v = m[1].toLowerCase();
+      if (v.includes('strong')) return 'strong';
+      if (v.includes('promising')) return 'promising';
+      return 'needs-work';
+    }
 
-  if (!apiKey) {
-    bodyEl.innerHTML = `<span class="error">No Groq API key set yet. Click "API Settings" in the top nav to add your free key.</span>`;
-    if (statusEl) { statusEl.textContent = 'no key'; statusEl.className = 'field-status'; }
-    return;
-  }
+    async function requestFeedback(field, text) {
+      const apiKey = localStorage.getItem('groq_api_key') || '';
+      const model = localStorage.getItem('groq_model') || 'llama-3.3-70b-versatile';
+      const statusEl = document.querySelector(`[data-status-for="${field}"]`);
+      const bodyEl = document.querySelector(`[data-feedback-body="${field}"]`);
+      const spec = FIELD_PROMPTS[field];
 
-  if (statusEl) { statusEl.textContent = 'thinking…'; statusEl.className = 'field-status loading'; }
-  bodyEl.innerHTML = `<div class="spinner"></div>`;
+      if (!apiKey) {
+        bodyEl.innerHTML = `<span class="error">No Groq API key set yet. Click "API Settings" in the top nav to add your free key.</span>`;
+        if (statusEl) { statusEl.textContent = 'no key'; statusEl.className = 'field-status'; }
+        return;
+      }
 
-  const wc = wordCount(text);
-  const limitLine = spec.limit ? `The stated limit is ${spec.limit} words; the student is currently at ${wc} words.` : `The student is currently at ${wc} words.`;
-  const systemPrompt = `You are a sharp, encouraging research mentor reviewing student submissions for a "How can Earth and Space Science improve Life on Earth over the next 20 years" youth research challenge (tracks: AI for Climate & Disaster Intelligence, Smart Earth Observations Using Satellites, Future of Water Security, Future Mobility through Space Technology).
+      if (statusEl) { statusEl.textContent = 'thinking…'; statusEl.className = 'field-status loading'; }
+      bodyEl.innerHTML = `<div class="spinner"></div>`;
+
+      const wc = wordCount(text);
+      const limitLine = spec.limit ? `The stated limit is ${spec.limit} words; the student is currently at ${wc} words.` : `The student is currently at ${wc} words.`;
+      const systemPrompt = `You are a sharp, encouraging research mentor reviewing student submissions for a "How can Earth and Space Science improve Life on Earth over the next 20 years" youth research challenge (tracks: AI for Climate & Disaster Intelligence, Smart Earth Observations Using Satellites, Future of Water Security, Future Mobility through Space Technology).
 
 You are reviewing ONLY this one field: "${spec.label}".
 ${spec.rubric}
@@ -825,159 +1553,160 @@ Reply with EXTREMELY concise, high-signal feedback as plain text (no markdown he
 - Line 1: one-word verdict tag in [brackets]: [Strong], [Promising], or [Needs Work].
 - Then 2-3 short bullet lines starting with "-" covering: what's good (if anything), the single biggest gap, and one concrete, actionable suggestion to improve it.
 Keep the whole reply under 80 words. Be direct and specific to what they actually wrote, never generic.`;
-  const userPrompt = `Chosen challenge track: ${state.challenge ? CHALLENGE_LABELS[state.challenge] : '(not specified yet)'}\n\nStudent's answer for "${spec.label}":\n"""\n${text}\n"""`;
+      const userPrompt = `Chosen challenge track: ${state.challenge ? CHALLENGE_LABELS[state.challenge] : '(not specified yet)'}\n\nStudent's answer for "${spec.label}":\n"""\n${text}\n"""`;
 
-  try {
-    const resp = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${apiKey.trim()}` },
-      body: JSON.stringify({
-        model,
-        temperature: 0.4,
-        max_tokens: 220,
-        messages: [{ role: 'system', content: systemPrompt }, { role: 'user', content: userPrompt }]
-      })
+      try {
+        const resp = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${apiKey.trim()}` },
+          body: JSON.stringify({
+            model,
+            temperature: 0.4,
+            max_tokens: 220,
+            messages: [{ role: 'system', content: systemPrompt }, { role: 'user', content: userPrompt }]
+          })
+        });
+        const data = await resp.json();
+
+        if (!resp.ok) {
+          const msg = data?.error?.message || `Groq API error (status ${resp.status}).`;
+          bodyEl.innerHTML = `<span class="error">${escapeHtml(msg)}</span>`;
+          if (statusEl) { statusEl.textContent = 'error'; statusEl.className = 'field-status'; }
+          return;
+        }
+
+        const feedback = data?.choices?.[0]?.message?.content?.trim();
+        if (!feedback) {
+          bodyEl.innerHTML = `<span class="error">Groq returned an empty response. Try again.</span>`;
+          if (statusEl) { statusEl.textContent = 'error'; statusEl.className = 'field-status'; }
+          return;
+        }
+
+        const vClass = verdictClass(feedback);
+        const cleaned = feedback.replace(/\[(.*?)\]/, '').trim();
+        bodyEl.innerHTML = `${vClass ? `<span class="verdict ${vClass}">${vClass.replace('-', ' ')}</span>` : ''}<div class="feedback-text">${escapeHtml(cleaned)}</div>`;
+        if (statusEl) { statusEl.textContent = 'updated just now'; statusEl.className = 'field-status ready'; }
+      } catch (err) {
+        bodyEl.innerHTML = `<span class="error">Couldn't reach Groq directly from the browser (network or CORS issue). Check your key and connection.</span>`;
+        if (statusEl) { statusEl.textContent = 'error'; statusEl.className = 'field-status'; }
+      }
+    }
+
+    /* ================= API KEY MODAL ================= */
+    const keyModalOverlay = document.getElementById('keyModalOverlay');
+    const apiKeyInput = document.getElementById('apiKeyInput');
+    const modelInput = document.getElementById('modelInput');
+    const keyDot = document.getElementById('keyDot');
+
+    function refreshKeyDot() { keyDot.classList.toggle('set', !!localStorage.getItem('groq_api_key')); }
+
+    document.getElementById('openKeyModal').addEventListener('click', () => {
+      apiKeyInput.value = localStorage.getItem('groq_api_key') || '';
+      modelInput.value = localStorage.getItem('groq_model') || 'llama-3.3-70b-versatile';
+      keyModalOverlay.classList.add('open');
     });
-    const data = await resp.json();
+    document.getElementById('closeKeyModal').addEventListener('click', () => keyModalOverlay.classList.remove('open'));
+    keyModalOverlay.addEventListener('click', (e) => { if (e.target === keyModalOverlay) keyModalOverlay.classList.remove('open'); });
+    document.getElementById('saveKeyBtn').addEventListener('click', () => {
+      localStorage.setItem('groq_api_key', apiKeyInput.value.trim());
+      localStorage.setItem('groq_model', modelInput.value);
+      refreshKeyDot();
+      keyModalOverlay.classList.remove('open');
+      showToast('Groq API key saved in this browser.', 'success');
+    });
+    refreshKeyDot();
 
-    if (!resp.ok) {
-      const msg = data?.error?.message || `Groq API error (status ${resp.status}).`;
-      bodyEl.innerHTML = `<span class="error">${escapeHtml(msg)}</span>`;
-      if (statusEl) { statusEl.textContent = 'error'; statusEl.className = 'field-status'; }
-      return;
+    /* ================= CONSULTATION UPSELL MODAL ================= */
+    const consultModalOverlay = document.getElementById('consultModalOverlay');
+    document.getElementById('openConsultModal').addEventListener('click', () => consultModalOverlay.classList.add('open'));
+    document.getElementById('closeConsultModal').addEventListener('click', () => consultModalOverlay.classList.remove('open'));
+    consultModalOverlay.addEventListener('click', (e) => { if (e.target === consultModalOverlay) consultModalOverlay.classList.remove('open'); });
+    document.getElementById('sendConsultBtn').addEventListener('click', () => {
+      const name = fieldEl('consultName').value.trim();
+      const email = fieldEl('consultEmail').value.trim();
+      const message = fieldEl('consultMessage').value.trim();
+      if (!name || !email) { showToast('Please add your name and email so we can reach you.', 'error'); return; }
+
+      const requests = JSON.parse(localStorage.getItem('esc_consultation_requests') || '[]');
+      requests.push({ name, email, message, challenge: state.challenge ? CHALLENGE_LABELS[state.challenge] : '', requestedAt: new Date().toISOString() });
+      localStorage.setItem('esc_consultation_requests', JSON.stringify(requests));
+
+      fieldEl('consultName').value = '';
+      fieldEl('consultEmail').value = '';
+      fieldEl('consultMessage').value = '';
+      consultModalOverlay.classList.remove('open');
+      showToast('Request received — our team will reach out within 2 business days.', 'success');
+    });
+
+    /* ================= TOAST ================= */
+    let toastTimer;
+    function showToast(msg, type) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.className = `toast show ${type || ''}`;
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove('show'), 3600);
     }
 
-    const feedback = data?.choices?.[0]?.message?.content?.trim();
-    if (!feedback) {
-      bodyEl.innerHTML = `<span class="error">Groq returned an empty response. Try again.</span>`;
-      if (statusEl) { statusEl.textContent = 'error'; statusEl.className = 'field-status'; }
-      return;
+    /* ================= SUBMIT (client-side only) ================= */
+    function submitForm() {
+      const payload = {
+        id: (crypto.randomUUID ? crypto.randomUUID() : String(Date.now())),
+        submittedAt: new Date().toISOString(),
+        name: fieldEl('f_name').value,
+        email: fieldEl('f_email').value,
+        phone: fieldEl('f_phone').value,
+        university: fieldEl('f_university').value,
+        degree: fieldEl('f_degree').value,
+        branch: fieldEl('f_branch').value,
+        yearOfStudy: fieldEl('f_year').value,
+        challenge: state.challenge ? CHALLENGE_LABELS[state.challenge] : '',
+        problem: fieldEl('f_problem').value,
+        sources: fieldEl('f_sources').value,
+        idea: fieldEl('f_idea').value,
+        different: fieldEl('f_different').value,
+        skills: fieldEl('f_skills').value
+      };
+
+      const all = JSON.parse(localStorage.getItem('esc_submissions') || '[]');
+      all.push(payload);
+      localStorage.setItem('esc_submissions', JSON.stringify(all));
+      localStorage.setItem('esc_last_submission', JSON.stringify(payload));
+
+      document.querySelectorAll('.w-step').forEach((el) => el.classList.toggle('active', el.dataset.step === 'success'));
+      document.getElementById('wizardNav').style.display = 'none';
+      wizardProgress.innerHTML = '';
     }
 
-    const vClass = verdictClass(feedback);
-    const cleaned = feedback.replace(/\[(.*?)\]/, '').trim();
-    bodyEl.innerHTML = `${vClass ? `<span class="verdict ${vClass}">${vClass.replace('-', ' ')}</span>` : ''}<div class="feedback-text">${escapeHtml(cleaned)}</div>`;
-    if (statusEl) { statusEl.textContent = 'updated just now'; statusEl.className = 'field-status ready'; }
-  } catch (err) {
-    bodyEl.innerHTML = `<span class="error">Couldn't reach Groq directly from the browser (network or CORS issue). Check your key and connection.</span>`;
-    if (statusEl) { statusEl.textContent = 'error'; statusEl.className = 'field-status'; }
-  }
-}
+    document.getElementById('downloadBtn').addEventListener('click', () => {
+      const last = localStorage.getItem('esc_last_submission');
+      if (!last) return;
+      const blob = new Blob([last], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'earth-space-submission.json';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    });
 
-/* ================= API KEY MODAL ================= */
-const keyModalOverlay = document.getElementById('keyModalOverlay');
-const apiKeyInput = document.getElementById('apiKeyInput');
-const modelInput = document.getElementById('modelInput');
-const keyDot = document.getElementById('keyDot');
+    document.getElementById('restartBtn').addEventListener('click', () => {
+      document.querySelectorAll('input, textarea').forEach((el) => (el.value = ''));
+      document.querySelectorAll('.word-counter').forEach((el) => { el.textContent = LIMITS[el.dataset.counterFor] ? `0 / ${LIMITS[el.dataset.counterFor]} words` : '0 words'; });
+      document.querySelectorAll('[data-feedback-body]').forEach((el) => { el.innerHTML = '<div class="feedback-empty">Write a couple of sentences — feedback appears here automatically once you pause.</div>'; });
+      document.querySelectorAll('[data-status-for]').forEach((el) => { el.textContent = ''; el.className = 'field-status'; });
+      state.challenge = null;
+      state.maxReached = 0;
+      document.querySelectorAll('.challenge-card, .track-chip').forEach((c) => c.classList.remove('selected', 'active'));
+      document.getElementById('wizardNav').style.display = 'flex';
+      showStep(0);
+    });
 
-function refreshKeyDot() { keyDot.classList.toggle('set', !!localStorage.getItem('groq_api_key')); }
-
-document.getElementById('openKeyModal').addEventListener('click', () => {
-  apiKeyInput.value = localStorage.getItem('groq_api_key') || '';
-  modelInput.value = localStorage.getItem('groq_model') || 'llama-3.3-70b-versatile';
-  keyModalOverlay.classList.add('open');
-});
-document.getElementById('closeKeyModal').addEventListener('click', () => keyModalOverlay.classList.remove('open'));
-keyModalOverlay.addEventListener('click', (e) => { if (e.target === keyModalOverlay) keyModalOverlay.classList.remove('open'); });
-document.getElementById('saveKeyBtn').addEventListener('click', () => {
-  localStorage.setItem('groq_api_key', apiKeyInput.value.trim());
-  localStorage.setItem('groq_model', modelInput.value);
-  refreshKeyDot();
-  keyModalOverlay.classList.remove('open');
-  showToast('Groq API key saved in this browser.', 'success');
-});
-refreshKeyDot();
-
-/* ================= CONSULTATION UPSELL MODAL ================= */
-const consultModalOverlay = document.getElementById('consultModalOverlay');
-document.getElementById('openConsultModal').addEventListener('click', () => consultModalOverlay.classList.add('open'));
-document.getElementById('closeConsultModal').addEventListener('click', () => consultModalOverlay.classList.remove('open'));
-consultModalOverlay.addEventListener('click', (e) => { if (e.target === consultModalOverlay) consultModalOverlay.classList.remove('open'); });
-document.getElementById('sendConsultBtn').addEventListener('click', () => {
-  const name = fieldEl('consultName').value.trim();
-  const email = fieldEl('consultEmail').value.trim();
-  const message = fieldEl('consultMessage').value.trim();
-  if (!name || !email) { showToast('Please add your name and email so we can reach you.', 'error'); return; }
-
-  const requests = JSON.parse(localStorage.getItem('esc_consultation_requests') || '[]');
-  requests.push({ name, email, message, challenge: state.challenge ? CHALLENGE_LABELS[state.challenge] : '', requestedAt: new Date().toISOString() });
-  localStorage.setItem('esc_consultation_requests', JSON.stringify(requests));
-
-  fieldEl('consultName').value = '';
-  fieldEl('consultEmail').value = '';
-  fieldEl('consultMessage').value = '';
-  consultModalOverlay.classList.remove('open');
-  showToast('Request received — our team will reach out within 2 business days.', 'success');
-});
-
-/* ================= TOAST ================= */
-let toastTimer;
-function showToast(msg, type) {
-  const toast = document.getElementById('toast');
-  toast.textContent = msg;
-  toast.className = `toast show ${type || ''}`;
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => toast.classList.remove('show'), 3600);
-}
-
-/* ================= SUBMIT (client-side only) ================= */
-function submitForm() {
-  const payload = {
-    id: (crypto.randomUUID ? crypto.randomUUID() : String(Date.now())),
-    submittedAt: new Date().toISOString(),
-    name: fieldEl('f_name').value,
-    email: fieldEl('f_email').value,
-    phone: fieldEl('f_phone').value,
-    university: fieldEl('f_university').value,
-    degree: fieldEl('f_degree').value,
-    branch: fieldEl('f_branch').value,
-    yearOfStudy: fieldEl('f_year').value,
-    challenge: state.challenge ? CHALLENGE_LABELS[state.challenge] : '',
-    problem: fieldEl('f_problem').value,
-    sources: fieldEl('f_sources').value,
-    idea: fieldEl('f_idea').value,
-    different: fieldEl('f_different').value,
-    skills: fieldEl('f_skills').value
-  };
-
-  const all = JSON.parse(localStorage.getItem('esc_submissions') || '[]');
-  all.push(payload);
-  localStorage.setItem('esc_submissions', JSON.stringify(all));
-  localStorage.setItem('esc_last_submission', JSON.stringify(payload));
-
-  document.querySelectorAll('.w-step').forEach((el) => el.classList.toggle('active', el.dataset.step === 'success'));
-  document.getElementById('wizardNav').style.display = 'none';
-  wizardProgress.innerHTML = '';
-}
-
-document.getElementById('downloadBtn').addEventListener('click', () => {
-  const last = localStorage.getItem('esc_last_submission');
-  if (!last) return;
-  const blob = new Blob([last], { type: 'application/json' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = 'earth-space-submission.json';
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-  URL.revokeObjectURL(url);
-});
-
-document.getElementById('restartBtn').addEventListener('click', () => {
-  document.querySelectorAll('input, textarea').forEach((el) => (el.value = ''));
-  document.querySelectorAll('.word-counter').forEach((el) => { el.textContent = LIMITS[el.dataset.counterFor] ? `0 / ${LIMITS[el.dataset.counterFor]} words` : '0 words'; });
-  document.querySelectorAll('[data-feedback-body]').forEach((el) => { el.innerHTML = '<div class="feedback-empty">Write a couple of sentences — feedback appears here automatically once you pause.</div>'; });
-  document.querySelectorAll('[data-status-for]').forEach((el) => { el.textContent = ''; el.className = 'field-status'; });
-  state.challenge = null;
-  state.maxReached = 0;
-  document.querySelectorAll('.challenge-card, .track-chip').forEach((c) => c.classList.remove('selected', 'active'));
-  document.getElementById('wizardNav').style.display = 'flex';
-  showStep(0);
-});
-
-/* ================= INIT ================= */
-showStep(0);
-</script>
+    /* ================= INIT ================= */
+    showStep(0);
+  </script>
 </body>
+
 </html>
