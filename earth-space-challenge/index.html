@@ -341,6 +341,102 @@
       line-height: 1.55;
     }
 
+    /* PRIZES SECTION */
+    .prize-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .prize-card.grand {
+      grid-column: 1 / -1;
+      background: linear-gradient(160deg, rgba(255, 179, 122, 0.08), rgba(255, 255, 255, 0.02));
+      border: 1px solid rgba(255, 179, 122, 0.25);
+    }
+
+    .prize-card {
+      background: linear-gradient(160deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.01));
+      border: 1px solid var(--panel-border);
+      border-radius: 16px;
+      padding: 30px 24px;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    @media (max-width: 850px) {
+      .prize-grid { grid-template-columns: 1fr; }
+    }
+    
+    .prize-card.grand::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+    }
+
+    .prize-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+    
+    .prize-card.grand:hover {
+      border-color: var(--accent);
+    }
+
+    .prize-icon {
+      font-size: 32px;
+      margin-bottom: 16px;
+    }
+
+    .prize-card h3 {
+      font-size: 18px;
+      font-weight: 800;
+      margin-bottom: 6px;
+      color: #fff;
+    }
+
+    .prize-card.grand h3 {
+      color: var(--accent);
+    }
+
+    .prize-subtitle {
+      font-size: 13px;
+      color: rgba(253, 243, 238, 0.5);
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 600;
+    }
+
+    .prize-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .prize-list li {
+      position: relative;
+      padding-left: 20px;
+      font-size: 13.5px;
+      color: rgba(253, 243, 238, 0.75);
+      margin-bottom: 12px;
+      line-height: 1.5;
+    }
+
+    .prize-list li::before {
+      content: '✦';
+      position: absolute;
+      left: 0;
+      top: 1px;
+      color: rgba(255, 255, 255, 0.3);
+      font-size: 12px;
+    }
+    
+    .prize-card.grand .prize-list li::before {
+      color: var(--accent);
+    }
+
     /* SECTIONS */
     .section {
       max-width: 1100px;
@@ -898,6 +994,57 @@
         <span class="feat-icon">🔬</span>
         <h4>ESEC Collaboration</h4>
         <p>Close partnership with Ritsumeikan's Earth &amp; Space Exploration Center</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRIZES SECTION -->
+  <section class="section" id="prizes">
+    <div class="section-head">
+      <h2>FREX Future Innovators Challenge</h2>
+      <p>Submit your research idea to win a spot at Sakura Quest and kickstart your academic pathway in Japan.</p>
+    </div>
+    <div class="prize-grid">
+      <!-- Grand Prize -->
+      <div class="prize-card grand">
+        <div class="prize-icon">🥇</div>
+        <h3>Grand Prize</h3>
+        <div class="prize-subtitle">1 Winner</div>
+        <ul class="prize-list">
+          <li>Present your research idea live at Sakura Quest (10 minutes) in front of the Ritsumeikan University team and invited guests.</li>
+          <li>Sponsored invite to Sakura Quest Finale event.</li>
+          <li>Private mentoring session with the FREX faculty or admissions team to discuss your research idea and academic pathway.</li>
+          <li>Certificate of Excellence jointly signed by Education Japan and Ritsumeikan University.</li>
+          <li>Featured interview on the Education Japan YouTube channel.</li>
+          <li>Priority counselling for FREX admissions from Education Japan.</li>
+        </ul>
+      </div>
+
+      <!-- Excellence Award -->
+      <div class="prize-card">
+        <div class="prize-icon">🥈</div>
+        <h3>Excellence Award</h3>
+        <div class="prize-subtitle">Top 5</div>
+        <ul class="prize-list">
+          <li>Meet the Ritsumeikan University delegation during Sakura Quest.</li>
+          <li>Certificate of Excellence.</li>
+          <li>Featured on Education Japan's website and social media.</li>
+          <li>Invitation to an exclusive Q&A session with the FREX team.</li>
+        </ul>
+      </div>
+
+      <!-- Finalists -->
+      <div class="prize-card">
+        <div class="prize-icon">🥉</div>
+        <h3>Finalists</h3>
+        <div class="prize-subtitle">Top 20</div>
+        <ul class="prize-list">
+          <li>Invitation to Sakura Quest as FREX Future Innovators Finalists.</li>
+          <li>Certificates of Achievement.</li>
+          <li>Networking session with Japanese university representatives.</li>
+          <li>Group photograph with the Ritsumeikan delegation.</li>
+          <li>Recognition during the award ceremony.</li>
+        </ul>
       </div>
     </div>
   </section>
